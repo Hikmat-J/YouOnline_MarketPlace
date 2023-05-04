@@ -1,0 +1,58 @@
+.min-vh-80 {
+    min-height: 80vh;
+}
+
+.img-back-auth {
+    background-image: url("../../../public/AuthIcons.svg");
+    background-size: cover;
+}
+
+.scrolling-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.rounded-start-0 {
+    border-top-right-radius: 0rem !important;
+    border-bottom-right-radius: 0rem !important;
+}
+
+.rounded-end-0 {
+    border-bottom-left-radius: 0rem !important;
+    border-top-left-radius: 0rem !important;
+}
+
+.w-85 {
+    width: 85%;
+}
+
+.w-65 {
+    width: 65%;
+}
+
+.btn-style-disabeld {
+    border: 1px solid #c8c4c4;
+    background-color: #cccccc !important;
+    color: #666666 !important;
+}
+
+.btn.btn-primary {
+    color: whitesmoke;
+}
+
+.text-gray {
+    color: #666666 !important;
+}
+.border-grey {
+    border-color: #666666;
+}
+.border-lightGrey {
+    border-color: #cccccc;
+}
+.border-dashed {
+    border-style: dashed;
+}
+.border-dotted {
+    border-style: dotted;
+}
