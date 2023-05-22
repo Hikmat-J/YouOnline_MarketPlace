@@ -61,7 +61,7 @@ CategoryCard.propTypes = {
     BackgroundColor: PropTypes.string,
 };
 
-CategoryCard.defaultValues = {
+CategoryCard.defaultProps = {
     ImgVariant: "",
     ImgSrc: "",
     Title: "",

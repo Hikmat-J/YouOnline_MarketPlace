@@ -8,6 +8,8 @@ export default function Switch(props) {
         let {value} = event.target;
         if (props.OnChange && typeof props.OnChange === "function") props.OnChange(value, event);
     };
+    const lang = app.getCookie("lang", "en");
+
     return (
         <Form.Check
             type="switch"
@@ -19,6 +21,8 @@ export default function Switch(props) {
             disabled={props.Disabled}
             size={props.Size}
             readOnly={props.ReadOnly}
+            checked={props.Checked}
+            reverse={lang === "ar"}
         />
     );
 }
@@ -31,6 +35,7 @@ Switch.propTypes = {
     Size: PropTypes.string,
     Disabled: PropTypes.bool,
     ReadOnly: PropTypes.bool,
+    Checked: PropTypes.bool,
 };
 Switch.defaultProps = {
     Class: "shadow-sm",
@@ -39,4 +44,5 @@ Switch.defaultProps = {
     Disabled: false,
     ReadOnly: false,
     Id: "switcher",
+    Checked: false,
 };

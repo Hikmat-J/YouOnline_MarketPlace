@@ -47,7 +47,7 @@ Card.propTypes = {
     ImgClass: PropTypes.string,
 };
 
-Card.defaultValues = {
+Card.defaultProps = {
     ImgVariant: "",
     ImgSrc: "",
     Title: "",

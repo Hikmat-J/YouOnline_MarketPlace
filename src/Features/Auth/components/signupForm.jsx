@@ -1,8 +1,9 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {SignUp} from "../middleware";
-import {SignUpModel} from "../models/request";
+import {SignUpApi} from "../middleware";
+import {selectAuth} from "../slice";
+import * as RequestModel from "../models/request";
 import * as app from "../../../Services/app";
 import {Button, Input, PhoneInput} from "../../../Components";
 import Countries from "../../Common/Countries/components/Countries";
@@ -16,8 +17,9 @@ import {FcGoogle} from "react-icons/fc";
 export default function SignupForm(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const authSelector = useSelector((state) => selectAuth(state));
     const [model, setModel] = useState({
-        ...SignUpModel.Body,
+        ...RequestModel.SignUpModel.Body,
     });
     const [control, setControl] = useState({
         authStep: 0,
@@ -28,7 +30,7 @@ export default function SignupForm(props) {
     function CreateAccount() {
         var sendModel = {...model, code: model.phone};
         sendModel.code = sendModel.phone.substring(0, 5);
-        dispatch(SignUp(sendModel)).then((_) => navigate("/Home"));
+        dispatch(SignUpApi(sendModel));
     }
     function ContinueWithFacebook() {}
     function ContinueWithGoogle() {}
@@ -39,6 +41,18 @@ export default function SignupForm(props) {
             leftTexts_Elm: props.Data.leftTextsElms.Signin,
         });
     }
+    useEffect(() => {
+        if (authSelector.status === "succeeded") {
+            navigate("/Home");
+            app.ChangeLinesSpinnerStatus(false);
+        }
+        if (authSelector.status === "failed") {
+            app.ShowTopMessageAlert("Error : " + authSelector.error, "", "danger");
+            app.ChangeLinesSpinnerStatus(false);
+        }
+        if (authSelector.status === "loading") app.ChangeLinesSpinnerStatus(true);
+    }, [authSelector.status]);
+
     return (
         <>
             {

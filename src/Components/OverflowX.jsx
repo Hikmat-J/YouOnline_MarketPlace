@@ -3,13 +3,16 @@ import {useRef} from "react";
 import Button from "./Button";
 import PropTypes from "prop-types";
 import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
+import {Row} from "react-bootstrap";
 
 export default function OverflowX(props) {
     const ref = useRef(null);
-
     return (
-        <div className={`row h-100 scrolling-wrapper   ${props.ContainerClass}`} ref={ref} style={{zIndex: 10}}>
-            <div className="col-1 position-absolute align-self-center " style={{zIndex: 100, opacity: 0.8, left: 50}}>
+        <Row sm={1} className={` h-100 scrolling-wrapper  ${props.ContainerClass}`} ref={ref} style={{zIndex: 10}}>
+            <div
+                className="col-1 position-absolute align-self-center text-start "
+                style={{zIndex: 100, opacity: 0.8,left:50}}
+            >
                 <Button
                     StartIcon={<AiOutlineLeft />}
                     Class={`shadow-sm  ${props.BtnLeftClass}`}
@@ -20,8 +23,8 @@ export default function OverflowX(props) {
             </div>
             {props.children}
             <div
-                className="col-1  position-absolute align-self-center text-end"
-                style={{zIndex: 100, opacity: 0.8, right: 50}}
+                className="col-1 position-absolute align-self-center text-end"
+                style={{zIndex: 100, opacity: 0.8,right:50}}
             >
                 <Button
                     StartIcon={<AiOutlineRight />}
@@ -31,7 +34,7 @@ export default function OverflowX(props) {
                     }}
                 />
             </div>
-        </div>
+        </Row>
     );
 }
 

@@ -9,15 +9,15 @@ export async function Get(url) {
         "content-type": "application/json",
     };
     return axios
-        .get(Constants.BASE_FRONTEND_API_URL + url, {
-            headers,
-        })
-        .then((resSuccess) => {
-            return HandleResponse(resSuccess);
-        })
-        .catch((err) => {
-            return HandleError(err);
-        });
+    .get(Constants.BASE_FRONTEND_API_URL + url, {
+        headers,
+    })
+    .then((resSuccess) => {
+        return HandleResponse(resSuccess);
+    })
+    .catch((err) => {
+        return HandleError(err);
+    });
 }
 
 export async function Post(url, body, params, isFormData = true) {
@@ -27,15 +27,14 @@ export async function Post(url, body, params, isFormData = true) {
         "content-type": isFormData ? "multipart/form-data" : "application/json",
     };
     return axios
-        .post(Constants.BASE_FRONTEND_API_URL + url, body, { params, headers })
-        .then((resSuccess) => {
-            return HandleResponse(resSuccess);
-        })
-        .catch((err) => {
-            return HandleError(err);
-        });
+    .post(Constants.BASE_FRONTEND_API_URL + url, body, {params, headers})
+    .then((resSuccess) => {
+        return HandleResponse(resSuccess);
+    })
+    .catch((err) => {
+        return HandleError(err);
+    });
 }
-
 
 export async function Put(url, body, params, isFormData = true) {
     let token = app.getCookie("jwt-Auzhorization", "");
@@ -44,21 +43,16 @@ export async function Put(url, body, params, isFormData = true) {
         "content-type": isFormData ? "multipart/form-data" : "application/json",
     };
     return axios
-        .put(Constants.BASE_FRONTEND_API_URL + url, body, { params, headers })
-        .then((resSuccess) => {
-            return HandleResponse(resSuccess);
-        })
-        .catch((err) => {
-            return HandleError(err);
-        });
+    .put(Constants.BASE_FRONTEND_API_URL + url, body, {params, headers})
+    .then((resSuccess) => {
+        return HandleResponse(resSuccess);
+    })
+    .catch((err) => {
+        return HandleError(err);
+    });
 }
 
-
-
-
 /// ------------- HELPERS --------------- ///
-
-
 
 async function HandleError(error) {
     return Promise.reject(error);
@@ -67,13 +61,16 @@ async function HandleError(error) {
 function HandleResponse(response, methodType) {
     let data = {};
     data = response.data.data;
-
     if (response.status === 200) {
         // if (methodType == "token") {
         //     app.setCookie("jwt-Auzhorization", response.data.token);
         //     data.token = "";
         //     localStorage.setItem("user", JSON.stringify(data));
         // }
+        if (data === undefined) {
+            if (response.data !== undefined) return response.data;
+            return response;
+        }
         return data;
     }
     // canReCall = false;

@@ -52,7 +52,7 @@ BrandCard.propTypes = {
     WithOverlay: PropTypes.bool,
 };
 
-BrandCard.defaultValues = {
+BrandCard.defaultProps = {
     ImgVariant: "",
     ImgSrc: "",
     Title: "",

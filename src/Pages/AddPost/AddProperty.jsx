@@ -1,6 +1,16 @@
 import React, {useState, useRef} from "react";
 import {Row, Col, Container, Image} from "react-bootstrap";
-import {Button, GoogleMap, PhoneInput, RichTextArea, Input, Select, UploadImages, Checkbox} from "../../Components";
+import {
+    Button,
+    VideoPlayer,
+    GoogleMap,
+    PhoneInput,
+    RichTextArea,
+    Input,
+    Select,
+    UploadImages,
+    Checkbox,
+} from "../../Components";
 import * as app from "../../Services/app";
 import * as Constants from "../../Utils/constants";
 import {RequestModel} from "../../Features/Property/Add/models";
@@ -40,14 +50,34 @@ export default function AddProperty(props) {
     return (
         <>
             <Container className=" col-8">
-                {console.log("addModel.image >> ", addModel.image)}
                 {props.control.Step === 2 ? (
                     <>
-                        <p className="text-center m-5 p-2">
-                            <h2>Upload Images</h2>
-                            <h4 className="text-gray ">upload imagesssssss</h4>
+                        <UploadImages
+                            IsMultiple
+                            Images={images}
+                            OnReadImages={(imagesArray) => {
+                                setImages(imagesArray);
+                            }}
+                            OnAddImage={(image) => {
+                                setImages((old) => [...old, image]);
+                            }}
+                        />
+
+                        <hr />
+                        <p className="text-center m-5 mb-0 p-2">
+                            <h2>{app.translate("uploadvideo")}</h2>
+                            <h5>{`(${app.translate("optional")})`}</h5>
                         </p>
-                        <UploadImages IsMultiple OnReadImages={(imagesArray) => { setImages(imagesArray)}} />
+                        <Row className=" px-4 ">
+                            <Input
+                                Label="videourl"
+                                Value={addModel.linkurl}
+                                OnChange={(linkurl) => setAddModel((old) => ({...old, linkurl}))}
+                            />
+                        </Row>
+                        <Row className="p-4 ms-2">
+                            <VideoPlayer VideoUrl={addModel.linkurl} />
+                        </Row>
                         {/* <input id="image" multiple type="file" ref={imageRef} onChange={UploadProfileImage} /> */}
                         {/* <Image
                             className="rounded rounded-circle position-absolute "
@@ -298,14 +328,16 @@ export default function AddProperty(props) {
                             })}
                         </Row>
                         <Row>
-                            <PhoneInput
-                                Class="w-100"
-                                LabelClass="pb-1 my-2 "
-                                Value={addModel.phone}
-                                OnChange={(phone) => {
-                                    setAddModel((old) => ({...old, phone}));
-                                }}
-                            />
+                            <Col>
+                                {console.log("addModel.phone >> ", addModel.phone)}
+                                <PhoneInput
+                                    Class="w-100"
+                                    Value={addModel.phone}
+                                    OnChange={(phone) => {
+                                        setAddModel((old) => ({...old, phone}));
+                                    }}
+                                />
+                            </Col>
                         </Row>
                         <Row className="my-3 py-2">
                             <RichTextArea

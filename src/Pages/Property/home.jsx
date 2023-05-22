@@ -2,34 +2,39 @@ import React, {useEffect, useState} from "react";
 import {Row, Col, Image} from "react-bootstrap";
 import * as app from "../../Services/app";
 import {IoSearchOutline} from "react-icons/io5";
-import {Button, Switch, Tabs, Tab, Dropdown, Select, OverflowX, PropertyCard} from "../../Components";
+import {Button, Select, PropertyCard} from "../../Components";
 import {useDispatch, useSelector} from "react-redux";
 import {GetPropertyByCategory} from "../../Features/Property/GetByCategory/middleware";
+import {useNavigate} from "react-router-dom";
 
 export default function Home(props) {
     const [control, setControl] = useState({
         IsRent: false,
         TabSelected: "residential",
     });
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const propertyCategoriesSelector = useSelector((state) => state.Property.Categories.data);
     const propertyByCategorySelector = useSelector((state) => state.Property.ByCategoryId.data);
+    function SearchHandle() {
+        navigate("/Property/Filter", true);
+    }
     useEffect(() => {
         dispatch(GetPropertyByCategory(1));
     }, []);
     // useEffect(() => {}, [propertyCategoriesSelector]);
     return (
         <>
-            <section>
-                <Row
+            <section className="container">
+                    <Row
                     className="flex-fill "
                     style={{background: "linear-gradient(90.33deg, #F9F9F9 -18.35%, #E5F0FA 107.37%)"}}
                 >
                     <Col className="align-self-center mx-4 h-100">
-                        <Row>
+                        <Row className="mt-4">
                             <h2>
                                 {app.translate("searchfor") + " "}
-                                <span className="text-primary">{app.translate("properties")}</span>
+                                <span className="text-primary ">{app.translate("properties")}</span>
                             </h2>
                         </Row>
                         <Row>
@@ -119,6 +124,7 @@ export default function Home(props) {
                             <Select Options={[]} Label="area" ContainerClass="col m-3 p-0" />
                             <Col className="align-self-center col-auto">
                                 <Button
+                                    OnClick={SearchHandle}
                                     StartIcon={
                                         <IoSearchOutline className="btn btn-primary text-light fs-1 mt-4 p-2 rounded" />
                                     }
@@ -141,13 +147,14 @@ export default function Home(props) {
                             </div>
                         </Row>
                         {/* <OverflowX> */}
-                        <Row md={3}>
+                        <Row md={4}>
                             {propertyByCategorySelector.proprety &&
                                 propertyByCategorySelector.proprety.length > 0 &&
                                 propertyByCategorySelector.proprety.map((item, index) => {
                                     return (
                                         <Col>
                                             <PropertyCard
+                                                PropertyId={item.id}
                                                 SubTitle="0 Ads"
                                                 ImgSrc={item.proprety_image[0].proprety_image}
                                                 Title={item.title}

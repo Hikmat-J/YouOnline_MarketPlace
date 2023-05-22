@@ -1,13 +1,13 @@
 const Model = {
     title: "",
-    prop_type: "Sael",
-    category: 1, //id
-    subcategory: 2, //id
-    country: 0, //id
-    state: 0, //id
-    city: 0, //id
-    code: "0", //number
-    phone: "00000",
+    prop_type: "",
+    category: "", //id
+    subcategory: "", //id
+    country: "", //id
+    state: "", //id
+    city: "", //id
+    code: "", //number
+    phone: "",
     address: "",
     latitude: "",
     longitude: "",
@@ -15,21 +15,21 @@ const Model = {
     currency: "",
     area: "",
     areaunit: "",
-    bedrooms: "0",
-    baths: "0",
+    bedrooms: "",
+    baths: "",
     description: "",
-    furnished: 0,//false,
-    living_room: 0,//false,
-    balcony: 0,//false,
-    lift: 0,//false,
-    parking: 0,//false,
-    storage: 0,//false,
-    gym: 0,//false,
-    cinema: 0,//false,
-    conference: 0,//false,
-    swimming_poll: 0,//false,
-    maid_room: 0,//false,
-    sports: 0,//false,
+    furnished: "", //false,
+    living_room: "", //false,
+    balcony: "", //false,
+    lift: "", //false,
+    parking: "", //false,
+    storage: "", //false,
+    gym: "", //false,
+    cinema: "", //false,
+    conference: "", //false,
+    swimming_poll: "", //false,
+    maid_room: "", //false,
+    sports: "", //false,
     linkurl: "",
     // image: [], //[file,file,file]
 };

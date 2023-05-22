@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import * as app from "../../../Services/app";
-import {Button, Input, Select} from "../../../Components";
+import {Button, Input} from "../../../Components";
 import {Col, Row} from "react-bootstrap";
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
 export default function RecoverPasswordForm(props) {

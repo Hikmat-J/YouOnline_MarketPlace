@@ -26,16 +26,16 @@ export default function Home(props) {
     const AutomotiveBrandsSelector = useSelector((state) => state.Automotive.Brands.Featured.data);
     const PropertyFeaturedSelector = useSelector((state) => state.Property.Featured.data);
     const AutomotiveCategoriesSelector = useSelector((state) => state.Automotive.Categories.data);
-    const PropertyCategoriesSelector = useSelector((state) => state.Property.Categories.data);
+    const PropertyCategoriesSelector = useSelector((state) => state.Property.Categories);
 
     const [data, setData] = useState({
         Categories: [],
     });
-
     const [control, setControl] = useState({
         lang: app.getCookie("lang", "en"),
     });
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(GetFeaturedBrands());
         dispatch(GetFeaturedAutomotive());
@@ -45,6 +45,8 @@ export default function Home(props) {
     }, []);
     return (
         <>
+            {PropertyCategoriesSelector.error !== null &&
+                console.log("PropertyCategoriesSelector.error >> ", PropertyCategoriesSelector.error)}
             <div
                 className="d-flex justify-content-center  m-0 align-items-center bg-light"
                 style={{
@@ -145,12 +147,12 @@ export default function Home(props) {
                         )}
                     </Tab>
                     <Tab eventKey="longer-tab" title={app.translate("properties")}>
-                        {PropertyCategoriesSelector.count && PropertyCategoriesSelector.count > 0 && (
+                        {PropertyCategoriesSelector.data.count && PropertyCategoriesSelector.data.count > 0 && (
                             <section className="mb-5 container">
                                 <OverflowX ContainerClass="row-cols-lg-6 row-cols-auto">
-                                    {PropertyCategoriesSelector.Categories &&
-                                        PropertyCategoriesSelector.Categories.length > 0 &&
-                                        PropertyCategoriesSelector.Categories.map((item, index) => {
+                                    {PropertyCategoriesSelector.data.Categories &&
+                                        PropertyCategoriesSelector.data.Categories.length > 0 &&
+                                        PropertyCategoriesSelector.data.Categories.map((item, index) => {
                                             return (
                                                 <div>
                                                     <CategoryCard
@@ -187,7 +189,7 @@ export default function Home(props) {
                             AutomotiveFeaturedSelector.automaotive.length > 0 &&
                             AutomotiveFeaturedSelector.automaotive.map((item, index) => {
                                 return (
-                                    <div className="col">
+                                    <div className="col-auto">
                                         <AutomotiveCard
                                             SubTitle="0 Ads"
                                             ImgSrc={item.automotive_image[0].automotive_image}
@@ -217,8 +219,9 @@ export default function Home(props) {
                             PropertyFeaturedSelector.proprety.length > 0 &&
                             PropertyFeaturedSelector.proprety.map((item, index) => {
                                 return (
-                                    <div className="col">
+                                    <div className="col-auto">
                                         <PropertyCard
+                                            PropertyId={item.id}
                                             SubTitle="0 Ads"
                                             ImgSrc={item.proprety_image[0].proprety_image}
                                             Title={item.title}
@@ -247,7 +250,7 @@ export default function Home(props) {
                             AutomotiveBrandsSelector.AutomotiveBrands.length > 0 &&
                             AutomotiveBrandsSelector.AutomotiveBrands.map((item, index) => {
                                 return (
-                                    <div className="col">
+                                    <div className="col-auto">
                                         <BrandCard
                                             SubTitle="0 Ads"
                                             ImgClass="rounded-circle"

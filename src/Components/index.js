@@ -7,8 +7,8 @@ import MessageAlert from "./Alerts/MessageAlert";
 import PhoneInput from "./Form/Phone";
 import Dropdown from "./Dropdown";
 import ImgProfile_Card from "../Features/Profile/Details/components/ImgProfile";
-import ButtonImgUpload from "./ButtonImgUpload";
-import ImageUpload from "./ImageUpload";
+import ButtonImgUpload from "./Media/ButtonImgUpload";
+import ImageUpload from "./Media/ImageUpload";
 import Card from "./Cards/Card";
 import CategoryCard from "./Cards/CategoryCard";
 import BrandCard from "./Cards/BrandCard";
@@ -19,10 +19,16 @@ import OverflowX from "./OverflowX";
 import Switch from "./Form/Switch";
 import Tabs from "./Tabs";
 import Tab from "./Tab";
-import UploadImages from "./UploadImages";
+import UploadImages from "./Media/UploadImages";
 import Checkbox from "./Form/Checkbox";
 import RichTextArea from "./Form/RichTextArea";
 import GoogleMap from "./GoogleMap";
+import VideoPlayer from "./Media/VideoPlayer";
+import Carousel from "./Media/Carousel";
+import Dialog from "./Dialog";
+import Accordion from "./Accordion/Accordion";
+import AccordionItem from "./Accordion/AccordionItem";
+import RangeScroll from "./RangeScroll";
 
 export {
     Button,
@@ -49,5 +55,11 @@ export {
     UploadImages,
     Checkbox,
     RichTextArea,
-    GoogleMap,  
+    GoogleMap,
+    VideoPlayer,
+    Carousel,
+    Dialog,
+    Accordion,
+    AccordionItem,
+    RangeScroll,
 };

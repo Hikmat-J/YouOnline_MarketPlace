@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const reducers = {
-    // Local Data Reducers
+    // Local Reducer
 };
 
 function extraReducers(builder) {
@@ -35,7 +35,7 @@ const PropertyCategoriesSlice = createSlice({
 });
 
 const selectPropertyCategories = (state) => {
-    return state.Property.Featured;
+    return state.Property.Categories;
 };
 
 export default PropertyCategoriesSlice.reducer;

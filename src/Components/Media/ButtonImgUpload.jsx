@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
 import PropTypes from "prop-types";
-import Button from "./Button";
+import Button from "../Button";
 export default function ButtonImgUpload(props) {
     const InputRef = useRef(null);
     // function readURL(event) {

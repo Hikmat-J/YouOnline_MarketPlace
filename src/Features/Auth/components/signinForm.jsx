@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import * as app from "../../../Services/app";
-import {Button, Input, Select} from "../../../Components";
+import {Button, Input} from "../../../Components";
 import {Col, Row} from "react-bootstrap";
 import {BsFacebook} from "react-icons/bs";
 import {FcGoogle} from "react-icons/fc";
 import {useDispatch, useSelector} from "react-redux";
-import {SignIn} from "../middleware";
+import {SignInApi} from "../middleware";
+import {selectAuth} from "../slice";
 import {useNavigate} from "react-router-dom";
 export default function SignInForm(props) {
     const [model, setModel] = useState({
@@ -14,7 +15,7 @@ export default function SignInForm(props) {
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const selector = useSelector((state) => state.Auth);
+    const authSelector = useSelector((state) => selectAuth(state));
     function SignUpNow() {
         props.ChangeControl({
             ...props.control,
@@ -29,12 +30,22 @@ export default function SignInForm(props) {
             leftTexts_Elm: props.Data.leftTextsElms.ForgotPassword,
         });
     }
-    function PostSignIn() {
-        dispatch(SignIn(model)).then((_) => navigate("/Home"));
+    async function PostSignIn() {
+        dispatch(SignInApi(model));
     }
     function ContinueWithFacebook() {}
     function ContinueWithGoogle() {}
-
+    useEffect(() => {
+        if (authSelector.status === "succeeded") {
+            navigate("/Home");
+            app.ChangeLinesSpinnerStatus(false);
+        }
+        if (authSelector.status === "failed") {
+            app.ShowTopMessageAlert("Error : " + authSelector.error, "", "danger");
+            app.ChangeLinesSpinnerStatus(false);
+        }
+        if (authSelector.status === "loading") app.ChangeLinesSpinnerStatus(true);
+    }, [authSelector.status]);
     return (
         <div>
             {/* <Row className="text-end">
@@ -88,7 +99,7 @@ export default function SignInForm(props) {
                 <Col>
                     <hr />
                 </Col>
-                <Col className="col-auto">OR</Col>
+                <Col className="col-auto">{app.translate("or")}</Col>
                 <Col>
                     <hr />
                 </Col>

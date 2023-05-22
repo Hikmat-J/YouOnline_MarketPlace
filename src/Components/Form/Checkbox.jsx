@@ -8,10 +8,11 @@ export default function Checkbox(props) {
         let {value} = event.target;
         if (props.OnChange && typeof props.OnChange === "function") props.OnChange(value, event);
     };
+    const lang = app.getCookie("lang", "en");
     return (
         <Form.Check
             type="checkbox"
-            className={` ${props.Class}`}
+            className={`${props.Class}`}
             value={props.Value}
             id={props.Id}
             label={app.translate(props.Label)}
@@ -19,6 +20,7 @@ export default function Checkbox(props) {
             disabled={props.Disabled}
             size={props.Size}
             readOnly={props.ReadOnly}
+            reverse={lang === "ar"}
         />
     );
 }

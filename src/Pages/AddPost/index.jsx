@@ -6,13 +6,14 @@ import * as Constants from "../../Utils/constants";
 import {RequestModel} from "../../Features/Property/Add/models";
 import {AiOutlineRightCircle, AiOutlineCheckCircle} from "react-icons/ai";
 import {HiOutlineSquares2X2} from "react-icons/hi2";
-import {RiImageAddLine} from 'react-icons/ri'
+import {RiImageAddLine} from "react-icons/ri";
 import {MdOutlineFactCheck} from "react-icons/md";
 import {GiCrown} from "react-icons/gi";
 import AddProperty from "./AddProperty";
 import {useSelector} from "react-redux";
 import {AddProperty as AddPropertyAPI} from "../../Features/Property/Add/middleware";
 import {BsCheckCircleFill, BsImage} from "react-icons/bs";
+import {useNavigate} from "react-router-dom";
 
 export default function AddPost(props) {
     const [control, setControl] = useState({
@@ -21,7 +22,7 @@ export default function AddPost(props) {
         disableNext: true,
     });
     const profileSelector = useSelector((state) => state.Auth.data);
-
+    const navigate = useNavigate(); 
     const [data, setData] = useState({
         CategoriesTypes: [
             {
@@ -47,13 +48,14 @@ export default function AddPost(props) {
         ],
     });
 
-    function Publish(categoryType = "", model) {
+    async function Publish(categoryType = "", model) {
         switch (categoryType) {
             case "classified":
                 break;
             case "property":
-                let result = AddPropertyAPI(model);
-                console.log("result >> ", result);
+                AddPropertyAPI(model, () => {
+                    navigate("/Property/Home");
+                });
                 break;
             case "automotive":
                 break;
@@ -154,7 +156,7 @@ export default function AddPost(props) {
                     } `}
                     style={{cursor: "pointer"}}
                     onClick={() => {
-                        if (control.Step >= 3) setControl((old) => ({...old, Step: 5}));
+                        if (control.Step >= 3) setControl((old) => ({...old, Step: 4}));
                     }}
                 >
                     <AiOutlineCheckCircle className={` fs-2 mx-1  `} />
@@ -223,25 +225,27 @@ export default function AddPost(props) {
                 ) : null
             ) : null}
             <Row className="my-3 justify-content-center">
-                <Button
-                    Disabled={control.Step <= 1}
-                    Variant="primary col-auto px-5 mx-2"
-                    Size="md"
-                    OnClick={() => {
-                        if (control.Step > 1) setControl((old) => ({...old, Step: old.Step - 1}));
-                    }}
-                    Label="back"
-                />
                 {control.Step < 4 ? (
-                    <Button
-                        Disabled={control.disableNext}
-                        Variant="primary col-auto px-5 mx-2"
-                        Size="md"
-                        OnClick={() => {
-                            if (control.Step < 4) setControl((old) => ({...old, Step: old.Step + 1}));
-                        }}
-                        Label="next"
-                    />
+                    <>
+                        <Button
+                            Disabled={control.Step <= 1}
+                            Variant="primary col-auto px-5 mx-2"
+                            Size="md"
+                            OnClick={() => {
+                                if (control.Step > 1) setControl((old) => ({...old, Step: old.Step - 1}));
+                            }}
+                            Label="back"
+                        />
+                        <Button
+                            Disabled={control.disableNext}
+                            Variant="primary col-auto px-5 mx-2"
+                            Size="md"
+                            OnClick={() => {
+                                if (control.Step < 4) setControl((old) => ({...old, Step: old.Step + 1}));
+                            }}
+                            Label="next"
+                        />
+                    </>
                 ) : // ) : (
                 //     <Button
                 //         Disabled={control.selectedCategory === ""}

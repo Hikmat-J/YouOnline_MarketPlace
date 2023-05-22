@@ -19,7 +19,7 @@ function App() {
     return langKeys.count <= 0 ? (
         <div>Loading...</div>
     ) : (
-        <div style={{direction: lang == "ar" ? "rtl" : "ltr"}}>
+        <div style={{direction: lang == "ar" ? "rtl" : "ltr"}} lang={lang === "ar" ? "ar" : "en"}>
             <React.Suspense>
                 {linesSpinnerStatus && <SpinnerLines Show={true} />}
                 {alertTopMessageSelector.show && (

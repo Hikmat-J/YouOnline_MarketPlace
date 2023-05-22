@@ -14,4 +14,6 @@ export const privateRoutes = [
     {path: "/Profile/SavedResume", element: lazy(() => import("../Pages/Profile/savedResume.jsx"))},
     {path: "/Profile/Support", element: lazy(() => import("../Pages/Profile/support.jsx"))},
     {path: "/Property/Home", element: lazy(() => import("../Pages/Property/home.jsx"))},
+    {path: "/Property/Details", routeParam: "id", element: lazy(() => import("../Pages/Property/details.jsx"))},
+    {path: "/Property/Filter", element: lazy(() => import("../Pages/Property/filter.jsx"))},
 ];

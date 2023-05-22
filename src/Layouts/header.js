@@ -109,7 +109,7 @@ export default function Header(props) {
         <>
             <Navbar bg="primary" expand="lg">
                 <Container>
-                    <Navbar.Brand className="text-light mx-2" href="#home">
+                    <Navbar.Brand className="text-light mx-2" href="/Home">
                         YouOnline
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

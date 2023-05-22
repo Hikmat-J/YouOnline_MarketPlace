@@ -73,7 +73,7 @@ AutomotiveCard.propTypes = {
     ImgClass: PropTypes.string,
 };
 
-AutomotiveCard.defaultValues = {
+AutomotiveCard.defaultProps = {
     ImgVariant: "",
     ImgSrc: "",
     Title: "",

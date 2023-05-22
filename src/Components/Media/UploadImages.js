@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Row, Col, Image} from "react-bootstrap";
-import * as app from "../Services/app";
+import * as app from "../../Services/app";
 import PropTypes from "prop-types";
 import {IoIosImages} from "react-icons/io";
-import {MdCancel} from "react-icons/md";
+import {MdAdd, MdCancel} from "react-icons/md";
 
 export default function UploadImages(props) {
     // if (props.DisplayAsButton) {
@@ -29,8 +29,10 @@ export default function UploadImages(props) {
 
     const [images, setImages] = useState([]);
     const imageRef = useRef(null);
+    const addOneImageRef = useRef(null);
 
-    const showUploadImgs = () => imageRef.current.click();
+    const showUploadImages = () => imageRef.current.click();
+    const showUploadImage = () => addOneImageRef.current.click();
 
     function OnReadImages(event) {
         event.stopPropagation();
@@ -39,19 +41,31 @@ export default function UploadImages(props) {
         setImages(files);
         if (props.OnReadImages && typeof props.OnReadImages === "function") props.OnReadImages(files, event);
     }
-
+    function OnAddImage(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        var file = event.target.files[0];
+        setImages((old) => [...old, file]);
+        if (props.OnAddImage && typeof props.OnAddImage === "function") props.OnAddImage(file, event);
+    }
     function removeImage(imgFile) {
         var tempImages = [...images];
         tempImages = tempImages.filter((img) => img !== imgFile);
         setImages(tempImages);
         if (props.OnReadImages && typeof props.OnReadImages === "function") props.OnReadImages(tempImages);
     }
+
+    useEffect(() => {
+        if (Array.isArray(props.Images) && props.Images.length > 0) {
+            setImages(props.Images);
+        }
+    }, []);
     return (
         <>
             <Row
                 className="text-center align-items-center m-4 text-gray rounded-4 border-dotted border-lightGrey border-1"
                 style={{minHeight: 200, cursor: "pointer"}}
-                onClick={showUploadImgs}
+                onClick={showUploadImages}
             >
                 <input
                     className="d-none"
@@ -62,25 +76,52 @@ export default function UploadImages(props) {
                     accept="image/*"
                     onChange={OnReadImages}
                 />
+
                 <IoIosImages size={75} />
-                <h2 className="text-gray">{app.translate("uploadimagetext")}</h2>
+                <h2 className="text-gray">{app.translate("clicktouploadimages")}</h2>
             </Row>
             <Row className="row-cols-auto m-4">
                 {images.map((img) => {
                     return (
                         <>
-                            <Col className="position-relative">
+                            <Col className="position-relative m-1 my-3 ">
                                 <MdCancel
                                     className="text-danger bg-light rounded-5 position-absolute start-0  "
-                                    style={{top: -10, cursor: "pointer",zIndex:20}}
+                                    style={{top: -10, cursor: "pointer", zIndex: 20}}
                                     size={25}
                                     onClick={() => removeImage(img)}
                                 />
-                                <Image style={{zIndex:10}} src={URL.createObjectURL(img)} width={75} height={75} rounded />
+                                <Image
+                                    style={{zIndex: 10}}
+                                    src={URL.createObjectURL(img)}
+                                    width={75}
+                                    height={75}
+                                    rounded
+                                />
                             </Col>
                         </>
                     );
                 })}
+                <input
+                    className="d-none"
+                    id="image1"
+                    type="file"
+                    ref={addOneImageRef}
+                    accept="image/*"
+                    onChange={OnAddImage}
+                />
+                {images.length > 0 && (
+                    <>
+                        <Col className="m-1 py-3">
+                            <MdAdd
+                                style={{cursor: "pointer"}}
+                                className="text-gray rounded-4 border-dotted border-lightGrey border-1"
+                                size={60}
+                                onClick={showUploadImage}
+                            />
+                        </Col>
+                    </>
+                )}
             </Row>
         </>
     );
@@ -88,16 +129,13 @@ export default function UploadImages(props) {
 }
 
 UploadImages.propTypes = {
-    Model: PropTypes.string,
-    OnChange: PropTypes.func.isRequired,
+    OnReadImages: PropTypes.func.isRequired,
+    OnAddImage: PropTypes.func,
+    Images: PropTypes.array.isRequired,
     Title: PropTypes.string,
-    IsTable: PropTypes.bool,
-    DisplayAsButton: PropTypes.bool,
 };
 
 UploadImages.defaultProps = {
     Model: "",
     Title: "",
-    IsTable: false,
-    DisplayAsButton: false,
 };
