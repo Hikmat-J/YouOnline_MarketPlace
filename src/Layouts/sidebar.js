@@ -102,7 +102,7 @@ export default function Sidebar(props) {
             />
             <div className="d-flex">
                 <div
-                    className={`offcanvas offcanvas-start sticky-lg-top ${control.ShowSidebar && "show"}`}
+                    className={`offcanvas offcanvas-start d-none d-lg-inline sticky-lg-top ${control.ShowSidebar && "show"}`}
                     style={{width: 400}}
                     id="bdSidebar"
                     aria-labelledby="bdSidebarOffcanvasLabel"

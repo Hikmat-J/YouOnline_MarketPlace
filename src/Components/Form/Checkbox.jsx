@@ -13,7 +13,7 @@ export default function Checkbox(props) {
         <Form.Check
             type="checkbox"
             className={`${props.Class}`}
-            value={props.Value}
+            // value={props.Value}
             id={props.Id}
             label={app.translate(props.Label)}
             onChange={handleChange}
@@ -21,6 +21,7 @@ export default function Checkbox(props) {
             size={props.Size}
             readOnly={props.ReadOnly}
             reverse={lang === "ar"}
+            checked={props.Value}
         />
     );
 }

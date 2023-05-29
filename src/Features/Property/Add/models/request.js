@@ -1,24 +1,24 @@
 const Model = {
     title: "",
-    prop_type: "",
+    prop_type: "Rent",
     category: "", //id
     subcategory: "", //id
     country: "", //id
     state: "", //id
     city: "", //id
     code: "", //number
-    phone: "",
+    phone: "&#x200F;",
     address: "",
     latitude: "",
     longitude: "",
     price: "",
     currency: "",
     area: "",
-    areaunit: "",
-    bedrooms: "",
-    baths: "",
+    areaunit: "Suqare Meter",
+    bedrooms: '0',
+    baths: '0',
     description: "",
-    furnished: "", //false,
+    furnished: 0, //false,
     living_room: "", //false,
     balcony: "", //false,
     lift: "", //false,

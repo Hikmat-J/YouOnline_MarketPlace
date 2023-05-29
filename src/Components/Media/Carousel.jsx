@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import RBCarousel from "react-bootstrap/Carousel";
 import PropTypes from "prop-types";
 import * as app from "../../Services/app";
@@ -7,6 +7,25 @@ import Dialog from "../Dialog";
 import {BsFullscreen} from "react-icons/bs";
 
 export default function Carousel(props) {
+    const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+    function getCurrentDimension() {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight,
+        };
+    }
+
+    useEffect(() => {
+        const updateDimension = () => {
+            setScreenSize(getCurrentDimension());
+        };
+        window.addEventListener("resize", updateDimension);
+
+        return () => {
+            window.removeEventListener("resize", updateDimension);
+        };
+    }, [screenSize]);
     const [index, setIndex] = useState(0);
     const [control, setControl] = useState({
         Show: false,
@@ -17,12 +36,27 @@ export default function Carousel(props) {
 
     const renderCarousel = () => {
         return (
-            <RBCarousel className="h-100 bg-dark text-center" activeIndex={index} onSelect={handleSelect}>
+            <RBCarousel
+                className="h-100 bg-dark text-center d-flex align-items-center"
+                activeIndex={index}
+                onSelect={handleSelect}
+                style={{minHeight: 400}}
+            >
                 {props.Items &&
                     props.Items.map((item, itemIndex) => {
                         return (
-                            <RBCarousel.Item>
-                                <img className="w-auto" src={item.src} alt={item.alt} height={props.Height} />
+                            <RBCarousel.Item >
+                                {item.src.trim() !== "" && (
+                                    <center>
+                                        {" "}
+                                        <img
+                                            className={screenSize.width > 900 ? "w-auto" : "w-100 h-auto"}
+                                            src={item.src}
+                                            alt={item.alt}
+                                            height={props.Height}
+                                        />
+                                    </center>
+                                )}
                                 <RBCarousel.Caption>{item.caption}</RBCarousel.Caption>
                             </RBCarousel.Item>
                         );
@@ -57,12 +91,12 @@ export default function Carousel(props) {
                     setControl((old) => ({...old, Show: false}));
                 }}
             >
-                <RBCarousel className="h-100 bg-dark text-center" activeIndex={index} onSelect={handleSelect}>
+                <RBCarousel className="h-100 bg-dark text-center  d-flex align-items-center" activeIndex={index} onSelect={handleSelect}>
                     {props.Items &&
                         props.Items.map((item, itemIndex) => {
                             return (
                                 <RBCarousel.Item>
-                                    <img className="w-100" src={item.src} alt={item.alt} height={620} />
+                                    <img className="w-auto" src={item.src} alt={item.alt} height={620} />
                                     <RBCarousel.Caption>{item.caption}</RBCarousel.Caption>
                                 </RBCarousel.Item>
                             );

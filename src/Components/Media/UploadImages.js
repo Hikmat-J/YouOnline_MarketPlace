@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Row, Col, Image} from "react-bootstrap";
 import * as app from "../../Services/app";
+import * as Constants from "../../Utils/constants";
 import PropTypes from "prop-types";
 import {IoIosImages} from "react-icons/io";
 import {MdAdd, MdCancel} from "react-icons/md";
@@ -56,6 +57,7 @@ export default function UploadImages(props) {
     }
 
     useEffect(() => {
+        console.log('props.Images :>> ', props.Images);
         if (Array.isArray(props.Images) && props.Images.length > 0) {
             setImages(props.Images);
         }
@@ -63,8 +65,8 @@ export default function UploadImages(props) {
     return (
         <>
             <Row
-                className="text-center align-items-center m-4 text-gray rounded-4 border-dotted border-lightGrey border-1"
-                style={{minHeight: 200, cursor: "pointer"}}
+                className="text-center  align-items-center m-4 text-gray rounded-4 border-dotted border-lightGrey border-1"
+                style={{minHeight: 200, cursor: "pointer", width: 500}}
                 onClick={showUploadImages}
             >
                 <input
@@ -79,6 +81,7 @@ export default function UploadImages(props) {
 
                 <IoIosImages size={75} />
                 <h2 className="text-gray">{app.translate("clicktouploadimages")}</h2>
+                <h5 className="fw-bold">({app.translate("required")})</h5>
             </Row>
             <Row className="row-cols-auto m-4">
                 {images.map((img) => {

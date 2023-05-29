@@ -29,7 +29,7 @@ export default function VideoPlayer(props) {
                         className=" text-center align-items-center text-gray rounded-4 border-dotted border-lightGrey border-1"
                         style={{width: props.Width, height: props.Height}}
                     >
-                        <AiOutlineVideoCameraAdd className="ms-2 " size={150} />
+                        <AiOutlineVideoCameraAdd className="mx-2 " size={150} />
                         <h4>{app.translate(props.Text)}</h4>
                     </Row>
                 </>

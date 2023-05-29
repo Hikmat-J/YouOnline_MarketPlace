@@ -43,7 +43,7 @@ export default function SignupForm(props) {
     }
     useEffect(() => {
         if (authSelector.status === "succeeded") {
-            navigate("/Home");
+            document.location.reload();
             app.ChangeLinesSpinnerStatus(false);
         }
         if (authSelector.status === "failed") {

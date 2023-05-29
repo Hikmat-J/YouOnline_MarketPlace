@@ -34,8 +34,8 @@ export default function AutomotiveCard(props) {
                 </div>
             </div>
             <BCard.Body>
-                <BCard.Title className="fw-bold fs-5">{props.Title}</BCard.Title>
-                <BCard.Text>
+                <BCard.Title style={{height:40}} className="fw-bold fs-5">{props.Title}</BCard.Title>
+                <BCard.Text style={{height:40}}>
                     <MdLocationOn className="text-primary fs-4" />
                     <small className="">
                         {props.Country} - {props.State} - {props.City}

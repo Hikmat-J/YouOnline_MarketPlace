@@ -2,6 +2,8 @@ import React from "react";
 import store from "../Redux/Store";
 import {setTopMessageState, alertTopMessageModel} from "../Redux/Reducers/Alert/TopMessage/index";
 import {setLinesSpinnerStatus} from "../Redux/Reducers/Spinners/Lines/slice";
+import {toastAlertModel} from "../Redux/Reducers/Alert/Toast/model";
+import {setToastAlertState} from "../Redux/Reducers/Alert/Toast/slice";
 
 export function setCookie(name, value, days) {
     var expires = "";
@@ -58,6 +60,16 @@ export function ShowTopMessageAlert(messageKey = "", link = "", messageType = "s
             break;
     }
     store.dispatch(setTopMessageState(alertModel));
+}
+
+export function ShowToastAlert(header = "", body = "", alertClass, messageType = "danger") {
+    let alertModel = {...toastAlertModel, header, body};
+    alertModel.class = alertClass;
+    alertModel.header = header;
+    alertModel.body = body;
+    alertModel.messageType = messageType;
+    alertModel.show = true;
+    store.dispatch(setToastAlertState(alertModel));
 }
 
 export function ChangeLinesSpinnerStatus(show = false) {

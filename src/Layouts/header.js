@@ -3,6 +3,7 @@ import {Col} from "react-bootstrap";
 import {changeLoginState} from "../Features/Auth/slice";
 import * as app from "../Services/app";
 import {IoSearchOutline, IoLanguageOutline} from "react-icons/io5";
+import {BiUserCircle} from "react-icons/bi";
 import {IoIosSettings} from "react-icons/io";
 import {MdSpaceDashboard} from "react-icons/md";
 import {RiAdvertisementFill} from "react-icons/ri";
@@ -109,7 +110,13 @@ export default function Header(props) {
         <>
             <Navbar bg="primary" expand="lg">
                 <Container>
-                    <Navbar.Brand className="text-light mx-2" href="/Home">
+                    <Navbar.Brand
+                        className="text-light mx-2"
+                        style={{cursor: "pointer"}}
+                        onClick={() => {
+                            navigate("/");
+                        }}
+                    >
                         YouOnline
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -140,7 +147,8 @@ export default function Header(props) {
                             <Nav.Item>
                                 <Dropdown
                                     Variant="light mt-1 p-1"
-                                    StartIcon={<IoLanguageOutline className=" text-primary p-0 m-0" />}
+                                    ContainerClass="mx-2"
+                                    StartIcon={<IoLanguageOutline line className=" text-primary fs-4 mt-1 p-0 m-0" />}
                                     Options={[
                                         {Key: "en", Value: "En"},
                                         {Key: "ar", Value: "Ar"},
@@ -154,14 +162,16 @@ export default function Header(props) {
                             </Nav.Item>
                             <Nav.Item>
                                 <Dropdown
-                                    Img
-                                    ImgSrc={Constants.IMAGES_URL + "" + profileSelector.profile_image}
+                                    //Img
+                                    Variant="light mt-1 p-1"
+                                    StartIcon={<BiUserCircle line className=" text-primary fs-4 mt-1 p-0 m-0" />}
+                                    //ImgSrc={Constants.IMAGES_URL + "" + profileSelector.profile_image}
                                     OnChange={(key) => {
                                         dispatch(changeLoginState("dashboard"));
                                         navigate("/Profile/" + key);
                                     }}
-                                    ImgHeight={30}
-                                    ImgWidth={30}
+                                    // ImgHeight={13}
+                                    // ImgWidth={13}
                                     ContainerClass="mx-2"
                                     Options={data.ProfileImg_Options}
                                 />
@@ -172,6 +182,7 @@ export default function Header(props) {
                                     Variant="light"
                                     Label="addpost"
                                     OnClick={() => {
+                                        dispatch(changeLoginState(""));
                                         navigate("/AddPost");
                                     }}
                                 />

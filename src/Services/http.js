@@ -8,8 +8,10 @@ export async function Get(url) {
         Authorization: token === "" ? "" : `Bearer ${token}`,
         "content-type": "application/json",
     };
+    let sendUrl = url.slice(0, 6) === "/media" ? url : Constants.BASE_FRONTEND_API_URL + url;
+
     return axios
-    .get(Constants.BASE_FRONTEND_API_URL + url, {
+    .get(sendUrl, {
         headers,
     })
     .then((resSuccess) => {
@@ -26,8 +28,10 @@ export async function Post(url, body, params, isFormData = true) {
         Authorization: token === "" ? "" : `Bearer ${token}`,
         "content-type": isFormData ? "multipart/form-data" : "application/json",
     };
+    let sendUrl = url.slice(0, 6) === "/media" ? url : Constants.BASE_FRONTEND_API_URL + url;
+
     return axios
-    .post(Constants.BASE_FRONTEND_API_URL + url, body, {params, headers})
+    .post(sendUrl, body, {params, headers})
     .then((resSuccess) => {
         return HandleResponse(resSuccess);
     })
@@ -42,8 +46,9 @@ export async function Put(url, body, params, isFormData = true) {
         Authorization: token === "" ? "" : `Bearer ${token}`,
         "content-type": isFormData ? "multipart/form-data" : "application/json",
     };
+    let sendUrl = url.slice(0, 6) === "/media" ? url : Constants.BASE_FRONTEND_API_URL + url;
     return axios
-    .put(Constants.BASE_FRONTEND_API_URL + url, body, {params, headers})
+    .put(sendUrl, body, {params, headers})
     .then((resSuccess) => {
         return HandleResponse(resSuccess);
     })

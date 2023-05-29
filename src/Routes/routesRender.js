@@ -8,7 +8,14 @@ export const RoutesRenderer = (routArray) =>
             exact
             path={RouteObj.path + (RouteObj.routeParam ? "/:" + RouteObj.routeParam : "")}
             element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                    fallback={
+                        <div className="justify-content-center px-5 " style={{minHeight: 1000, height: 1000}}>
+                            {/* <Lottie animationData={lottieFile} /> */}
+                            {/* <PagePlaceholder /> */}
+                        </div>
+                    }
+                >
                     <RouteObj.element />
                 </Suspense>
             }

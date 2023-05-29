@@ -2,17 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as app from "../Services/app";
 import RBButton from "react-bootstrap/Button";
+import {Placeholder} from "react-bootstrap";
 
 export default function Button(props) {
     const handleClick = (event) => {
         let {value} = event;
         if (props.OnClick && typeof props.OnClick === "function") props.OnClick(value, event);
     };
-    return (
+    return props.ShowSkeleton ? (
+        <>
+            <Placeholder.Button xs={12  } aria-hidden="true">
+                {app.translate("loading")}
+            </Placeholder.Button>
+        </>
+    ) : (
         <RBButton
             className={props.Class}
             variant={props.Variant}
-            size={props.Size} 
+            size={props.Size}
             disabled={props.Disabled}
             active={props.Active}
             onClick={handleClick}
@@ -38,13 +45,15 @@ Button.propTypes = {
     Active: PropTypes.bool,
     StartIcon: PropTypes.element,
     EndIcon: PropTypes.element,
+    ShowSkeleton: PropTypes.bool,
 };
 Button.defaultProps = {
     Label: "",
     Class: "text-light",
     Variant: "",
     Size: "",
-    Type: "",
+    Type: "button",
     Disabled: false,
     Active: false,
+    ShowSkeleton: false,
 };

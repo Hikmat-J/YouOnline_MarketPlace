@@ -9,6 +9,9 @@ const initialState = {
 };
 
 const reducers = {
+    changeProperties: (state, action) => {
+        state.data.Property = action.payload;
+    },
     // Local Data Reducers
 };
 
@@ -38,6 +41,7 @@ const selectGetPropertyByCategory = (state) => {
     return state.Property.Featured;
 };
 
+export const {changeProperties} = GetPropertyByCategorySlice.actions;
 export default GetPropertyByCategorySlice.reducer;
 
 export {selectGetPropertyByCategory, GetPropertyByCategorySlice};

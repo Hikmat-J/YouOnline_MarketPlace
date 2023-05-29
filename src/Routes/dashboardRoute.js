@@ -1,19 +1,25 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Header from "../Layouts/header";
 import Sidebar from "../Layouts/sidebar";
-import { Container } from "react-bootstrap";
+import Navbar from "../Layouts/navbar";
+import {Container} from "react-bootstrap";
+import Footer from "../Layouts/footer";
+// import ScrollToTop from "react-scroll-to-top";
 
 export function DashboardRoute(props) {
     return (
         <>
             {/* Here private layout */}
             <Header />
-            <Sidebar >
+            <Navbar />
+            {/* <ScrollToTop smooth /> */}
+            <Sidebar>
                 <div className=" px-5 py-2 container w-100 h-100">
                     <Outlet />
                 </div>
             </Sidebar>
+            <Footer />
         </>
     );
 }

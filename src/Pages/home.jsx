@@ -12,6 +12,7 @@ import {GetFeaturedProperties} from "../Features/Property/Featured/middleware";
 import {GetPropertyCategories} from "../Features/Property/Categories/middleware";
 import {GetAutomotiveCategories} from "../Features/Automotive/Categories/middleware";
 import CategoryCard from "../Components/Cards/CategoryCard";
+import bgHome from "../assets/images/bgHome.png";
 
 export default function Home(props) {
     const [model, setModel] = useState({
@@ -33,10 +34,12 @@ export default function Home(props) {
     });
     const [control, setControl] = useState({
         lang: app.getCookie("lang", "en"),
+        Show: true,
     });
     const dispatch = useDispatch();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(GetFeaturedBrands());
         dispatch(GetFeaturedAutomotive());
         dispatch(GetFeaturedProperties());
@@ -45,15 +48,14 @@ export default function Home(props) {
     }, []);
     return (
         <>
-            {PropertyCategoriesSelector.error !== null &&
-                console.log("PropertyCategoriesSelector.error >> ", PropertyCategoriesSelector.error)}
             <div
                 className="d-flex justify-content-center  m-0 align-items-center bg-light"
                 style={{
+                    minHeight: 490,
                     height: 490,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
-                    backgroundImage: 'url("/bgHome.png"',
+                    backgroundImage: `url(${bgHome})`,
                 }}
             >
                 <div className="bg-white p-4 rounded-4 border-1 ">
@@ -116,11 +118,11 @@ export default function Home(props) {
             </div>
             <section className="my-5 container">
                 <label className="fs-4 fw-bold text-primary  ">{app.translate("browsebycategories")}</label>
-                <Tabs defaultActiveKey="profile" id="justify-tab-example" className="mb-3">
-                    <Tab eventKey="home" title={app.translate("classified")}>
+                <Tabs defaultActiveKey="properties" id="justify-tab-example" className="mb-3">
+                    <Tab eventKey="classified" title={app.translate("classified")}>
                         No Classified Categories
                     </Tab>
-                    <Tab eventKey="profile" title={app.translate("automotive")}>
+                    <Tab eventKey="automotive" title={app.translate("automotive")}>
                         {AutomotiveCategoriesSelector.count && AutomotiveCategoriesSelector.count > 0 && (
                             <section className="mb-5 container">
                                 <OverflowX ContainerClass="row-cols-lg-6 row-cols-auto">
@@ -146,33 +148,41 @@ export default function Home(props) {
                             </section>
                         )}
                     </Tab>
-                    <Tab eventKey="longer-tab" title={app.translate("properties")}>
+                    <Tab eventKey="properties" title={app.translate("properties")}>
                         {PropertyCategoriesSelector.data.count && PropertyCategoriesSelector.data.count > 0 && (
                             <section className="mb-5 container">
                                 <OverflowX ContainerClass="row-cols-lg-6 row-cols-auto">
-                                    {PropertyCategoriesSelector.data.Categories &&
-                                        PropertyCategoriesSelector.data.Categories.length > 0 &&
-                                        PropertyCategoriesSelector.data.Categories.map((item, index) => {
-                                            return (
-                                                <div>
-                                                    <CategoryCard
-                                                        Ads="0 Ads"
-                                                        BackgroundColor={
-                                                            index % 2 === 0
-                                                                ? Constants.BACK_COLORS_ID_LIST.lightGreen
-                                                                : Constants.BACK_COLORS_ID_LIST.lightRed
-                                                        }
-                                                        ImgSrc={item.image}
-                                                        Title={item.name}
-                                                    />
-                                                </div>
-                                            );
-                                        })}
+                                    {PropertyCategoriesSelector.status !== "succeeded"
+                                        ? [0, 1, 2, 3, 4, 5, 6, 7].map((cat, index) => {
+                                              return (
+                                                  <Col key={index}>
+                                                      <CategoryCard ShowSkeleton />
+                                                  </Col>
+                                              );
+                                          })
+                                        : PropertyCategoriesSelector.data.Categories &&
+                                          PropertyCategoriesSelector.data.Categories.length > 0 &&
+                                          PropertyCategoriesSelector.data.Categories.map((item, index) => {
+                                              return (
+                                                  <div>
+                                                      <CategoryCard
+                                                          Ads="0 Ads"
+                                                          BackgroundColor={
+                                                              index % 2 === 0
+                                                                  ? Constants.BACK_COLORS_ID_LIST.lightGreen
+                                                                  : Constants.BACK_COLORS_ID_LIST.lightRed
+                                                          }
+                                                          ImgSrc={item.image}
+                                                          Title={item.name}
+                                                      />
+                                                  </div>
+                                              );
+                                          })}
                                 </OverflowX>
                             </section>
                         )}
                     </Tab>
-                    <Tab eventKey="contact" title={app.translate("jobs")}>
+                    <Tab eventKey="jobs" title={app.translate("jobs")}>
                         No Jobs Categories
                     </Tab>
                 </Tabs>
@@ -221,6 +231,9 @@ export default function Home(props) {
                                 return (
                                     <div className="col-auto">
                                         <PropertyCard
+                                            Beds={item.beds}
+                                            Bath={item.baths}
+                                            Space={item.area}
                                             PropertyId={item.id}
                                             SubTitle="0 Ads"
                                             ImgSrc={item.proprety_image[0].proprety_image}
@@ -230,6 +243,8 @@ export default function Home(props) {
                                             City={item.city}
                                             State={item.state}
                                             Price={item.price}
+                                            Id={item.id}
+                                            fav={item.proprety_fav === 1}
                                         />
                                     </div>
                                 );
@@ -263,6 +278,7 @@ export default function Home(props) {
                     </OverflowX>
                 </section>
             )}
+
         </>
     );
 }

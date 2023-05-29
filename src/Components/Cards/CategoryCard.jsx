@@ -3,6 +3,7 @@ import * as app from "../../Services/app";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import PropTypes from "prop-types";
+import {Placeholder} from "react-bootstrap";
 
 export default function CategoryCard(props) {
     let Category = props.Category;
@@ -16,9 +17,34 @@ export default function CategoryCard(props) {
         </Tooltip>
     );
 
-    return (
+    return props.ShowSkeleton ? (
+        <>
+            <BCard
+                className={` m-3 ${props.ContainerClass} `}
+                style={{height: 240, width: 150, backgroundColor: props.BackgroundColor}}
+            >
+                <Placeholder bg="#d2d9d4" as="p" style={{height: 120}} size="lg" animation={props.ImgSkeletonAnimation}>
+                    <Placeholder bg="#d2d9d4" xs={12} className="h-100" />
+                </Placeholder>
+                <BCard.Body>
+                    <Placeholder bg="#d2d9d4" as={BCard.Title} animation={props.SkeletonAnimation}>
+                        <Placeholder bg="#d2d9d4" xs={12} />
+                    </Placeholder>
+                    <Placeholder
+                        bg="#d2d9d4"
+                        as={BCard.Text}
+                        animation={props.SkeletonAnimation}
+                        className="text-center"
+                    >
+                        <Placeholder bg="#d2d9d4" xs={6} />
+                    </Placeholder>
+                    {/* <Placeholder.Button variant="primary" xs={6} /> */}
+                </BCard.Body>
+            </BCard>
+        </>
+    ) : (
         <BCard
-            className={` m-3  ${props.ContainerClass} `}
+            className={` m-3 ${props.ContainerClass} `}
             style={{height: 240, width: 150, backgroundColor: props.BackgroundColor}}
             onClick={handleClick}
         >
@@ -32,7 +58,7 @@ export default function CategoryCard(props) {
                     alt="Error in image."
                     variant={props.ImgVariant}
                     src={props.ImgSrc}
-                    height={100}
+                    height={120}
                     style={{cursor: "pointer"}}
                     onClick={props.ImgClicked}
                 />
@@ -59,6 +85,9 @@ CategoryCard.propTypes = {
     ImgClass: PropTypes.string,
     WithOverlay: PropTypes.bool,
     BackgroundColor: PropTypes.string,
+    ShowSkeleton: PropTypes.bool,
+    SkeletonAnimation: PropTypes.string,
+    ImgSkeletonAnimation: PropTypes.string,
 };
 
 CategoryCard.defaultProps = {
@@ -67,8 +96,11 @@ CategoryCard.defaultProps = {
     Title: "",
     // Text: "",
     Ads: "",
-    ImgClass: "text-center  ",
+    ImgClass: " text-center px-4 ",
     WithOverlay: false,
     BackgroundColor: "",
     ContainerClass: "border-0",
+    ShowSkeleton: false,
+    SkeletonAnimation: "glow",
+    ImgSkeletonAnimation: "",
 };

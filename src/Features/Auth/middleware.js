@@ -5,7 +5,7 @@ import * as app from "../../Services/app";
 export const SignInApi = createAsyncThunk("SignIn/fetchData", async (model, {rejectWithValue}) => {
     const response = await http.Post("/user/weblogin/", model, {}, true);
     return response;
-    // app.ChangeLinesSpinnerStatus(true);
+    // ;
     // return await http
     // .Post("/user/weblogin/", model, {}, true)
     // .then((response) => {

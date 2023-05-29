@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Row, Col, Container} from "react-bootstrap";
 import {Button, CategoryCard} from "../../Components";
 import * as app from "../../Services/app";
@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import {AddProperty as AddPropertyAPI} from "../../Features/Property/Add/middleware";
 import {BsCheckCircleFill, BsImage} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
+import {VscTypeHierarchySub} from "react-icons/vsc";
 
 export default function AddPost(props) {
     const [control, setControl] = useState({
@@ -22,32 +23,48 @@ export default function AddPost(props) {
         disableNext: true,
     });
     const profileSelector = useSelector((state) => state.Auth.data);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [data, setData] = useState({
         CategoriesTypes: [
             {
-                imgSrc: "",
+                // imgSrc: "../../assets/Icons/Category-Class.png",
                 name: "classified",
                 // ads: 120,
             },
             {
-                imgSrc: "",
+                // imgSrc: "../../assets/Icons/Category-Prop.png",
                 name: "property",
                 // ads: 120,
             },
             {
-                imgSrc: "",
+                // imgSrc: "../../assets/Icons/Category-Auto.png",
                 name: "automotive",
                 // ads: 120,
             },
             {
-                imgSrc: "",
+                // imgSrc: "../../assets/Icons/Category-Job.png",
                 name: "job",
                 // ads: 120,
             },
         ],
     });
 
+    function getImage(catName) {
+        switch (catName) {
+            case "classified":
+                return "../../assets/Icons/Category-Class.png";
+                break;
+            case "automotive":
+                return "../../assets/Icons/Category-Auto.png";
+                break;
+            case "job":
+                return "../../assets/Icons/Category-Job.png";
+                break;
+            case "property":
+                return "../../assets/Icons/Category-Prop.png";
+                break;
+        }
+    }
     async function Publish(categoryType = "", model) {
         switch (categoryType) {
             case "classified":
@@ -64,6 +81,12 @@ export default function AddPost(props) {
         }
     }
 
+    useEffect(() => {
+        if (control.Step === 1 && control.selectedCategory === "") setControl((old) => ({...old, disableNext: true}));
+    }, [control.Step]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <Container>
             <Row className="text-center my-5 py-3  ">
@@ -71,7 +94,7 @@ export default function AddPost(props) {
             </Row>
             <Row className="bg-white py-2 pt-0 text-center shadow-sm rounded w-100">
                 <Col
-                    className={` p-0 ${
+                    className={`col-12 col-md-4 col-lg-3 p-0 ${
                         control.Step > 1 ? "text-primary " : control.Step === 1 ? "text-dark" : " text-gray "
                     } `}
                     style={{cursor: "pointer"}}
@@ -91,7 +114,7 @@ export default function AddPost(props) {
                     }
                 </Col>
                 <Col
-                    className={` p-0 ${
+                    className={`col-12 col-md-4 col-lg-3 p-0 ${
                         control.Step > 2 ? " text-primary " : control.Step === 2 ? "text-dark" : " text-gray "
                     } `}
                     style={{cursor: "pointer"}}
@@ -99,8 +122,8 @@ export default function AddPost(props) {
                         if (control.Step > 2) setControl((old) => ({...old, Step: 2}));
                     }}
                 >
-                    <RiImageAddLine className={` fs-2  mx-1  `} />
-                    <span className="h-100 fs-6">{app.translate("uploadmedia")}</span>
+                    <VscTypeHierarchySub className={` fs-2  mx-1  `} />
+                    <span className="h-100 fs-6">{app.translate("selecttype")}</span>
                     <AiOutlineRightCircle className=" mx-2 ms-4" />
                     {
                         <hr
@@ -111,7 +134,7 @@ export default function AddPost(props) {
                     }
                 </Col>
                 <Col
-                    className={` p-0 ${
+                    className={`col-12 col-md-4 col-lg-3 p-0 ${
                         control.Step > 3 ? " text-primary " : control.Step === 3 ? "text-dark" : " text-gray "
                     } `}
                     style={{cursor: "pointer"}}
@@ -119,8 +142,8 @@ export default function AddPost(props) {
                         if (control.Step > 3) setControl((old) => ({...old, Step: 3}));
                     }}
                 >
-                    <MdOutlineFactCheck className={` fs-2 mx-1  `} />
-                    <span className="h-100 fs-6">{app.translate("createad")}</span>
+                    <RiImageAddLine className={` fs-2  mx-1  `} />
+                    <span className="h-100 fs-6">{app.translate("uploadmedia")}</span>
                     <AiOutlineRightCircle className=" mx-2 ms-4" />
                     {
                         <hr
@@ -130,8 +153,28 @@ export default function AddPost(props) {
                         />
                     }
                 </Col>
+                <Col
+                    className={`col-12 col-md-4 col-lg-3 p-0 ${
+                        control.Step > 4 ? " text-primary " : control.Step === 4 ? "text-dark" : " text-gray "
+                    } `}
+                    style={{cursor: "pointer"}}
+                    onClick={() => {
+                        if (control.Step > 4) setControl((old) => ({...old, Step: 4}));
+                    }}
+                >
+                    <MdOutlineFactCheck className={` fs-2 mx-1  `} />
+                    <span className="h-100 fs-6">{app.translate("createad")}</span>
+                    <AiOutlineRightCircle className=" mx-2 ms-4" />
+                    {
+                        <hr
+                            className={`w-100 border-2 border  opacity-100 ${
+                                control.Step >= 4 ? "border-primary" : "border-grey"
+                            }`}
+                        />
+                    }
+                </Col>
                 {/* <Col
-                    className={` p-0 ${
+                    className={` col-12 col-md-4 col-lg-3 p-0 ${
                         control.Step > 4 ? " text-primary " : control.Step === 4 ? "text-dark" : " text-gray "
                     } `}
                     style={{cursor: "pointer"}}
@@ -150,13 +193,13 @@ export default function AddPost(props) {
                         />
                     }
                 </Col> */}
-                <Col
-                    className={` p-0 ${
-                        control.Step > 4 ? " text-primary " : control.Step === 4 ? "text-dark" : " text-gray "
+                {/* <Col
+                    className={`col-12 col-md-4 col-lg-2 p-0 ${
+                        control.Step > 5 ? " text-primary " : control.Step === 5 ? "text-dark" : " text-gray "
                     } `}
                     style={{cursor: "pointer"}}
                     onClick={() => {
-                        if (control.Step >= 3) setControl((old) => ({...old, Step: 4}));
+                        if (control.Step >= 4) setControl((old) => ({...old, Step: 5}));
                     }}
                 >
                     <AiOutlineCheckCircle className={` fs-2 mx-1  `} />
@@ -164,14 +207,15 @@ export default function AddPost(props) {
                     {
                         <hr
                             className={`w-100 border-2 border  opacity-100 ${
-                                control.Step >= 4 ? "border-primary" : "border-grey"
+                                control.Step >= 5 ? "border-primary" : "border-grey"
                             }`}
                         />
                     }
-                </Col>
+                </Col> */}
             </Row>
             {control.Step === 1 ? (
                 <>
+                    <span hidden id="scroolTop"></span>
                     <Row className="text-center my-5 py-3  ">
                         <h2 className="fw-bold">{app.translate("whatareyouoffering?")}</h2>
                     </Row>
@@ -195,7 +239,13 @@ export default function AddPost(props) {
                                         }
                                         BackgroundColor={control.selectedCategory === category.name && "#F0FFF7"}
                                         Title={category.name}
-                                        ImgSrc={Constants.IMAGES_URL + "" + profileSelector.profile_image}
+                                        ImgSrc={require(category.name === "automotive"
+                                            ? "../../assets/Icons/Category-Auto.png"
+                                            : category.name === "property"
+                                            ? "../../assets/Icons/Category-Prop.png"
+                                            : category.name === "job"
+                                            ? "../../assets/Icons/Category-Job.png"
+                                            : "../../assets/Icons/Category-Class.png")}
                                         OnClick={() => {
                                             control.selectedCategory === category.name
                                                 ? setControl((old) => ({
@@ -215,36 +265,52 @@ export default function AddPost(props) {
                         })}
                     </Row>
                 </>
-            ) : control.Step >= 2 && control.Step <= 4 ? (
-                control.selectedCategory === "property" ? (
-                    <AddProperty
-                        control={control}
-                        changeControle={(newControl) => setControl(newControl)}
-                        Publish={(model) => Publish(control.selectedCategory, model)}
-                    />
-                ) : null
+            ) : control.Step >= 2 && control.Step <= 5 ? (
+                <>
+                    {control.selectedCategory === "property" ? (
+                        <AddProperty
+                            control={control}
+                            changeControle={(newControl) => setControl(newControl)}
+                            Publish={(model) => Publish(control.selectedCategory, model)}
+                        />
+                    ) : null}
+                </>
             ) : null}
             <Row className="my-3 justify-content-center">
-                {control.Step < 4 ? (
+                {control.Step < 5 ? (
                     <>
                         <Button
                             Disabled={control.Step <= 1}
-                            Variant="primary col-auto px-5 mx-2"
+                            Class="btn-outline-primary col-auto px-5 mx-2"
                             Size="md"
                             OnClick={() => {
-                                if (control.Step > 1) setControl((old) => ({...old, Step: old.Step - 1}));
+                                if (control.Step > 1) {
+                                    setControl((old) => ({...old, Step: old.Step - 1}));
+                                    window.scrollTo({
+                                        top: 100,
+                                        behavior: "smooth",
+                                    });
+                                }
                             }}
                             Label="back"
                         />
-                        <Button
-                            Disabled={control.disableNext}
-                            Variant="primary col-auto px-5 mx-2"
-                            Size="md"
-                            OnClick={() => {
-                                if (control.Step < 4) setControl((old) => ({...old, Step: old.Step + 1}));
-                            }}
-                            Label="next"
-                        />
+                        {control.Step < 4 && (
+                            <Button
+                                Disabled={control.disableNext}
+                                Variant="primary col-auto px-5 mx-2"
+                                Size="md"
+                                OnClick={() => {
+                                    if (control.Step < 5) {
+                                        setControl((old) => ({...old, Step: old.Step + 1}));
+                                        window.scrollTo({
+                                            top: 100,
+                                            behavior: "smooth",
+                                        });
+                                    }
+                                }}
+                                Label="next"
+                            />
+                        )}
                     </>
                 ) : // ) : (
                 //     <Button

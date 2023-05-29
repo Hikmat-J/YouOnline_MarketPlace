@@ -2,11 +2,12 @@ import * as http from "../../../Services/http";
 import * as app from "../../../Services/app";
 
 export async function AddProperty(model, OnSuccessFunc) {
-    // app.ChangeLinesSpinnerStatus(true);
+    // ;
     // const response = await http.Post("/prop/proprety/add/ ", model);
     // app.ChangeLinesSpinnerStatus(false);
     // return response;
-    // app.ChangeLinesSpinnerStatus(true);
+    // ;
+    ;
     app.ChangeLinesSpinnerStatus(true);
     const response = await http
     .Post("/prop/proprety/add/ ", model, {}, true)

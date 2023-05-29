@@ -5,6 +5,9 @@ import GetPropertyByCategoryReducer from "./GetByCategory/slice";
 import AddPropertyReducer from "./Add/slice";
 import {FilterPropertiesReducer} from "./Filter";
 import PropSubCategoriesReducer from "./SubCategories/slice";
+import PropertyCategoriesWithSubReducer from "./CategoriesWithSub/slice";
+import MyPropertyReducer from "./MyProperties/slice";
+import PropertyMinMaxReducer from "./MinMaxRange/slice";
 
 const PropertyReducer = combineReducers({
     Featured: FeaturedPropertiesReducer,
@@ -13,6 +16,9 @@ const PropertyReducer = combineReducers({
     AddProperty: AddPropertyReducer,
     Filter: FilterPropertiesReducer,
     SubCategories: PropSubCategoriesReducer,
+    CategoriesWithSub: PropertyCategoriesWithSubReducer,
+    MyProperties: MyPropertyReducer,
+    MinMax: PropertyMinMaxReducer,
 });
 
 export default PropertyReducer;

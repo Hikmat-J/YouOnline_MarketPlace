@@ -56,3 +56,33 @@
 .border-dotted {
     border-style: dotted;
 }
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+@media (min-width: 480px) {
+    /* styles for devices with a minimum screen width of 480px */
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 6svw;
+    }
+    h2 {
+        font-size: 5svw;
+    }
+    h3 {
+        font-size: 4svw;
+    }
+    h4 {
+        font-size: 3.5svw;
+    }
+    h5 {
+        font-size: 3svw;
+    }
+    h6 {
+        font-size: 2.5svw;
+    }
+    /* styles for devices with a maximum screen width of 480px */
+}

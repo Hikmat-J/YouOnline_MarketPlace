@@ -37,7 +37,7 @@ export default function SignInForm(props) {
     function ContinueWithGoogle() {}
     useEffect(() => {
         if (authSelector.status === "succeeded") {
-            navigate("/Home");
+            document.location.reload();
             app.ChangeLinesSpinnerStatus(false);
         }
         if (authSelector.status === "failed") {
@@ -92,7 +92,13 @@ export default function SignInForm(props) {
             </Row>
             <Row className="m-2 my-4">
                 <Col lg={5} className="m-auto">
-                    <Button Class="text-light w-100" Variant="primary" Label="signin" OnClick={PostSignIn} />
+                    <Button
+                        Class="text-light w-100"
+                        Variant="primary"
+                        Label="signin"
+                        ShowSkeleton={authSelector.status === "loading"  }
+                        OnClick={PostSignIn}
+                    />
                 </Col>
             </Row>
             <Row>

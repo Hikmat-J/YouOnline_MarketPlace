@@ -6,7 +6,7 @@ import {SetData, SetError, SetLoading, selectPropertyCategories} from "./slice";
 import {useDispatch, useSelector} from "react-redux";
 
 export const GetPropertyCategories = createAsyncThunk("GetPropertyCategories/fetchData", async () => {
-    app.ChangeLinesSpinnerStatus(true);
+    ;
     const response = await http.Get("/prop/webcats/");
     app.ChangeLinesSpinnerStatus(false);
     return response;

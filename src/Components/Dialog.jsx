@@ -28,7 +28,11 @@ function Dialog(props) {
                 direction: app.getCookie("Lang", "en") == "ar" ? "rtl" : "ltr",
             }}
         >
-            <Modal.Header closeButton={props.OnClose ? true : false} onClick={Close} className="p-2">
+            <Modal.Header
+                closeButton={props.OnClose ? true : false}
+                onClick={Close}
+                className={`p-2 ${props.HeaderClass}`}
+            >
                 <Modal.Title className="w-100">{app.translate(props.Title)}</Modal.Title>
             </Modal.Header>
             <Modal.Body className="p-2 text-start">{props.children}</Modal.Body>
@@ -36,7 +40,9 @@ function Dialog(props) {
                 {props.WithBtnClose && (
                     <Button Class="btn btn-outline-primary w-auto" Clicked={Close} Label={props.CloseLabel} />
                 )}
-                {props.Ok && <Button Class="btn btn-outline-success w-auto" Clicked={Ok} Label={props.OkLabel} />}
+                {props.Ok && (
+                    <Button Class={`btn btn-outline-${props.OkVariant} w-auto`} Clicked={Ok} Label={props.OkLabel} />
+                )}
                 {props.OtherButtons &&
                     props.OtherButtons.map((item) => {
                         return (
@@ -65,6 +71,8 @@ Dialog.propTypes = {
     Height: PropTypes.string,
     FullScreen: PropTypes.bool,
     WithBtnClose: PropTypes.bool,
+    HeaderClass: PropTypes.string,
+    OkVariant: PropTypes.string,
 };
 
 Dialog.defaultProps = {
@@ -76,5 +84,7 @@ Dialog.defaultProps = {
     Class: "",
     FullScreen: false,
     WithBtnClose: false,
+    HeaderClass: "",
+    OkVariant: "success",
 };
 export default Dialog;

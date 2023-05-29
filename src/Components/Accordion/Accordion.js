@@ -1,24 +1,21 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
-
+import {Accordion as RBAccordion} from "react-bootstrap";
 function Accordion(props) {
-
     return (
         <>
-            <div className="accordion" id="accordionExample">
-                {props.children}
-            </div>
+            <RBAccordion >{props.children}</RBAccordion>
         </>
     );
 }
 
 Accordion.propTypes = {
     Class: PropTypes.string,
-    Disabled: PropTypes.bool
-}
+    Disabled: PropTypes.bool,
+};
 Accordion.defaultProps = {
     Class: " ",
-    Disabled: false
-}
+    Disabled: false,
+};
 
 export default Accordion;

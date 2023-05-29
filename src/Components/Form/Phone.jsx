@@ -2,11 +2,22 @@ import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import PropTypes from "prop-types";
 import * as app from "../../Services/app";
+import {useEffect, useState} from "react";
 
 export default function PhoneInput(props) {
     const handleChange = (event) => {
         if (props.OnChange && typeof props.OnChange === "function") props.OnChange(event);
     };
+    const [value, setValue] = useState("");
+    const getValue = (val) => {
+        // if (app.getCookie("lang", "en") === "en") return val;
+        // if (val.slice(0, 8) === "&#x200F;") return val;
+        // else return `&#x200F;${val}`;
+        return val
+    };
+    useEffect(() => {
+        setValue(getValue(props.Value));
+    }, [props.Value]);
     return (
         <div className={props.ContainerClass}>
             <label className={props.LabelClass}>{app.translate("phonenumber")}</label>

@@ -11,7 +11,7 @@ function Dropdown(props) {
         if (props.OnChange && typeof props.OnChange === "function") props.OnChange(eventKey, props.Options, event);
     };
     return (
-        <RBDropdown dir="rtl" onSelect={handleChange} className={props.ContainerClass}>
+        <RBDropdown dir="" onSelect={handleChange} className={props.ContainerClass}>
             <RBDropdown.Toggle disabled={props.Disabled} size={props.Size} variant={props.Variant} id={props.ToggleId}>
                 {props.StartIcon && props.StartIcon}
                 {props.Label && app.translate(props.Label)}
