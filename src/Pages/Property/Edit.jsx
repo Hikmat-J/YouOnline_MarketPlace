@@ -132,9 +132,21 @@ export default function EditProperty() {
         sendModel.swimming_poll = model.swimming_poll;
         sendModel.title = model.title;
 
+        let formdata = new FormData();
+        for (var key in sendModel) {
+            formdata.append(key, sendModel[key]);
+        }
+        
+        if (Array.isArray(images) && images.length > 0) {
+            images.map((image) => {
+                formdata.append("image", image);
+            });
+        }
         setControl((old) => ({...old, loading_update: true}));
-        UpdatePropertyApi(params.id, sendModel)
+
+        UpdatePropertyApi(params.id, formdata)
         .then((res) => {
+            console.log("res after update :>> ", res);
             app.ShowToastAlert("alert", app.translate("postupdatedsuccessfully!"), "", "success");
             setControl((old) => ({...old, loading_update: false}));
         })

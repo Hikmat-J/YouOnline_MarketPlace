@@ -3,7 +3,7 @@
 }
 
 .img-back-auth {
-    background-image: url("../../../public/AuthIcons.svg");
+    background-image: url("../images/AuthIcons.svg");
     background-size: cover;
 }
 

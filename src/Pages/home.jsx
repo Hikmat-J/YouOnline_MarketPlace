@@ -229,12 +229,16 @@ export default function Home(props) {
                                 return (
                                     <PropertyCard
                                         Beds={item.beds}
-                                        ContainerClass=' m-3 col'
+                                        ContainerClass=" m-3 col"
                                         Bath={item.baths}
                                         Space={item.area}
                                         PropertyId={item.id}
                                         SubTitle="0 Ads"
-                                        ImgSrc={item.proprety_image[0].proprety_image}
+                                        ImgSrc={
+                                            item.proprety_image && item.proprety_image.length > 0
+                                                ? item.proprety_image[0].proprety_image
+                                                : ""
+                                        }
                                         Title={item.title}
                                         footerText="text"
                                         Country={item.country}

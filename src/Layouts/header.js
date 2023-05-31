@@ -4,6 +4,7 @@ import {changeLoginState} from "../Features/Auth/slice";
 import * as app from "../Services/app";
 import {IoSearchOutline, IoLanguageOutline} from "react-icons/io5";
 import {BiUserCircle} from "react-icons/bi";
+import {CiLogout} from "react-icons/ci";
 import {IoIosSettings} from "react-icons/io";
 import {MdSpaceDashboard} from "react-icons/md";
 import {RiAdvertisementFill} from "react-icons/ri";
@@ -100,6 +101,11 @@ export default function Header(props) {
                         <TfiHelpAlt className="m-2 fs-5" style={{backgroundColor: "#FFE8E0", color: "#882607"}} />
                     ),
                 },
+                {
+                    Key: "logout",
+                    Value: app.translate("logout"),
+                    StartIcon: <CiLogout className="m-2 fs-5" style={{backgroundColor: "#F2E4FE", color: "#882887"}} />,
+                },
             ],
         }));
     };
@@ -167,8 +173,13 @@ export default function Header(props) {
                                     StartIcon={<BiUserCircle line className=" text-primary fs-4 mt-1 p-0 m-0" />}
                                     //ImgSrc={Constants.IMAGES_URL + "" + profileSelector.profile_image}
                                     OnChange={(key) => {
-                                        dispatch(changeLoginState("dashboard"));
-                                        navigate("/Profile/" + key);
+                                        if (key === "logout") {
+                                            app.setCookie("jwt-Auzhorization", "");
+                                            dispatch(changeLoginState(""));
+                                        } else {
+                                            dispatch(changeLoginState("dashboard"));
+                                            navigate("/Profile/" + key);
+                                        }
                                     }}
                                     // ImgHeight={13}
                                     // ImgWidth={13}

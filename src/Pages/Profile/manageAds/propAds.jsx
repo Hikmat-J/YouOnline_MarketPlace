@@ -47,7 +47,9 @@ export default function ManagePropAds(props) {
                                             PropType={item.prop_type}
                                             PropertyId={item.id}
                                             SubTitle="0 Ads"
-                                            ImgSrc={item.proprety_image[0].proprety_image}
+                                            ImgSrc={ item.proprety_image && item.proprety_image.length > 0
+                                                ? item.proprety_image[0].proprety_image
+                                                : ""}
                                             Title={item.title}
                                             footerText="text"
                                             Country={item.country}

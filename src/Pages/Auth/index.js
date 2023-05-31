@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import * as app from "../../Services/app";
-import {Col, Row, Container} from "react-bootstrap";
+import {Col, Row, Container, Image} from "react-bootstrap";
 import {SignInForm, SignupForm, ForgotPasswordForm, RecoverPasswordForm} from "../../Features/Auth/components";
 import {IoLanguageOutline} from "react-icons/io5";
 import {FaLanguage} from "react-icons/fa";
 import {Button, Dropdown} from "../../Components";
+import AuthIcon from "../../assets/images/AuthIcons.svg";
 
 export default function Auth(props) {
     const [data, setData] = useState({
@@ -69,7 +70,7 @@ export default function Auth(props) {
         lang: app.getCookie("lang", ""),
         leftTexts_Elm: data.leftTextsElms.Signin,
     });
-    
+
     return (
         <div className="d-flex position-relative row g-0">
             <Row className="flex-fill">
@@ -97,7 +98,7 @@ export default function Auth(props) {
                         </Col>
                     </Row>
                     <Row className="h-auto w-100 m-0">
-                        <img src="./AuthIcons.svg" className="min-vh-40 p-0 m-0 " height={510} />
+                        <Image src={AuthIcon}  className="min-vh-40 p-0 m-0 " height={510} />
                     </Row>
                     <div className="ms-5 ps-2">
                         <Row className="text-light">{control.leftTexts_Elm}</Row>
