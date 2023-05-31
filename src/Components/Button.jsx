@@ -11,7 +11,7 @@ export default function Button(props) {
     };
     return props.ShowSkeleton ? (
         <>
-            <Placeholder.Button xs={12  } aria-hidden="true">
+            <Placeholder.Button className={props.Class} aria-hidden="true">
                 {app.translate("loading")}
             </Placeholder.Button>
         </>

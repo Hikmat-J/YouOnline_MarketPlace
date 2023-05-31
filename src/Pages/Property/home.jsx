@@ -277,14 +277,12 @@ export default function Home(props) {
                             {app.translate("mostpopularof") +
                                 " " +
                                 (control.TabSelected === 1
-                                    ? app.translate("residential")
+                                    ? app.translate("residentialproperties")
                                     : control.TabSelected === 2
-                                    ? app.translate("commercial")
+                                    ? app.translate("commercialproperties")
                                     : control.TabSelected === 3
-                                    ? app.translate("agricultural")
-                                    : app.translate("industrial")) +
-                                " " +
-                                app.translate("properties")}
+                                    ? app.translate("agriculturalproperties")
+                                    : app.translate("industrialproperties"))}
                         </div>
                     </Row>
                     {/* <OverflowX> */}

@@ -116,13 +116,13 @@ export default function PropertiesFilter(props) {
                                                   return (
                                                       <Row key={index}>
                                                           <Placeholder
-                                                              bg="#d2d9d4"
+                                                              bg="#ffffff"
                                                               as={"p"}
                                                               className="justify-content-between row w-100 py-2"
                                                               animation={"glow"}
                                                           >
-                                                              <Placeholder bg="#d2d9d4" xs={5} className="mx-1" />
-                                                              <Placeholder bg="#d2d9d4" xs={5} />
+                                                              <Placeholder bg="#ffffff" xs={5} className="mx-1" />
+                                                              <Placeholder bg="#ffffff" xs={5} />
                                                           </Placeholder>
                                                       </Row>
                                                   );

@@ -199,18 +199,16 @@ export default function Home(props) {
                             AutomotiveFeaturedSelector.automaotive.length > 0 &&
                             AutomotiveFeaturedSelector.automaotive.map((item, index) => {
                                 return (
-                                    <div className="col-auto">
-                                        <AutomotiveCard
-                                            SubTitle="0 Ads"
-                                            ImgSrc={item.automotive_image[0].automotive_image}
-                                            Title={item.title}
-                                            footerText="text"
-                                            Country={item.country}
-                                            City={item.city}
-                                            State={item.state}
-                                            Price={item.price}
-                                        />
-                                    </div>
+                                    <AutomotiveCard
+                                        SubTitle="0 Ads"
+                                        ImgSrc={item.automotive_image[0].automotive_image}
+                                        Title={item.title}
+                                        footerText="text"
+                                        Country={item.country}
+                                        City={item.city}
+                                        State={item.state}
+                                        Price={item.price}
+                                    />
                                 );
                             })}
                     </OverflowX>
@@ -229,24 +227,23 @@ export default function Home(props) {
                             PropertyFeaturedSelector.proprety.length > 0 &&
                             PropertyFeaturedSelector.proprety.map((item, index) => {
                                 return (
-                                    <div className="col-auto">
-                                        <PropertyCard
-                                            Beds={item.beds}
-                                            Bath={item.baths}
-                                            Space={item.area}
-                                            PropertyId={item.id}
-                                            SubTitle="0 Ads"
-                                            ImgSrc={item.proprety_image[0].proprety_image}
-                                            Title={item.title}
-                                            footerText="text"
-                                            Country={item.country}
-                                            City={item.city}
-                                            State={item.state}
-                                            Price={item.price}
-                                            Id={item.id}
-                                            fav={item.proprety_fav === 1}
-                                        />
-                                    </div>
+                                    <PropertyCard
+                                        Beds={item.beds}
+                                        ContainerClass=' m-3 col'
+                                        Bath={item.baths}
+                                        Space={item.area}
+                                        PropertyId={item.id}
+                                        SubTitle="0 Ads"
+                                        ImgSrc={item.proprety_image[0].proprety_image}
+                                        Title={item.title}
+                                        footerText="text"
+                                        Country={item.country}
+                                        City={item.city}
+                                        State={item.state}
+                                        Price={item.price}
+                                        Id={item.id}
+                                        fav={item.proprety_fav === 1}
+                                    />
                                 );
                             })}
                     </OverflowX>
@@ -265,20 +262,17 @@ export default function Home(props) {
                             AutomotiveBrandsSelector.AutomotiveBrands.length > 0 &&
                             AutomotiveBrandsSelector.AutomotiveBrands.map((item, index) => {
                                 return (
-                                    <div className="col-auto">
-                                        <BrandCard
-                                            SubTitle="0 Ads"
-                                            ImgClass="rounded-circle"
-                                            ImgSrc={item.image}
-                                            Title={item.name}
-                                        />
-                                    </div>
+                                    <BrandCard
+                                        SubTitle="0 Ads"
+                                        ImgClass="rounded-circle"
+                                        ImgSrc={item.image}
+                                        Title={item.name}
+                                    />
                                 );
                             })}
                     </OverflowX>
                 </section>
             )}
-
         </>
     );
 }

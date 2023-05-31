@@ -6,15 +6,16 @@ import PropTypes from "prop-types";
 
 function Dialog(props) {
     function Close() {
-        if (props.OnClose && typeof props.OnClose == "function") props.OnClose();
+        if (props.OnClose && typeof props.OnClose === "function") props.OnClose();
     }
 
     function Ok() {
-        if (props.Ok && typeof props.Ok == "function") props.Ok();
+        console.log("typeof props.Ok :>> ", typeof props.Ok);
+        if (props.Ok && typeof props.Ok === "function") props.Ok();
     }
 
     function Clicked(clicked) {
-        if (clicked && typeof clicked == "function") clicked();
+        if (clicked && typeof clicked === "function") clicked();
     }
 
     return (
@@ -38,10 +39,10 @@ function Dialog(props) {
             <Modal.Body className="p-2 text-start">{props.children}</Modal.Body>
             <Modal.Footer className="p-1">
                 {props.WithBtnClose && (
-                    <Button Class="btn btn-outline-primary w-auto" Clicked={Close} Label={props.CloseLabel} />
+                    <Button Class="btn btn-outline-primary w-auto" OnClick={Close} Label={props.CloseLabel} />
                 )}
                 {props.Ok && (
-                    <Button Class={`btn btn-outline-${props.OkVariant} w-auto`} Clicked={Ok} Label={props.OkLabel} />
+                    <Button Class={`btn btn-outline-${props.OkVariant} w-auto`} OnClick={Ok} Label={props.OkLabel} />
                 )}
                 {props.OtherButtons &&
                     props.OtherButtons.map((item) => {

@@ -15,7 +15,7 @@ export function PrivateRoute(props) {
             <>
                 <Header />
                 <Navbar />
-                <ScrollToTop smooth />
+                <ScrollToTop smooth style={{zIndex: 10}} />
                 {/* </Navbar> */}
                 {Outlet}
                 <Footer />

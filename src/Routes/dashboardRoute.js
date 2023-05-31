@@ -15,7 +15,7 @@ export function DashboardRoute(props) {
             <Navbar />
             {/* <ScrollToTop smooth /> */}
             <Sidebar>
-                <div className=" px-5 py-2 container w-100 h-100">
+                <div className="container w-100 h-100">
                     <Outlet />
                 </div>
             </Sidebar>

@@ -23,20 +23,20 @@ export default function CategoryCard(props) {
                 className={` m-3 ${props.ContainerClass} `}
                 style={{height: 240, width: 150, backgroundColor: props.BackgroundColor}}
             >
-                <Placeholder bg="#d2d9d4" as="p" style={{height: 120}} size="lg" animation={props.ImgSkeletonAnimation}>
-                    <Placeholder bg="#d2d9d4" xs={12} className="h-100" />
+                <Placeholder bg="#ffffff" className='rounded-2' as="p" style={{height: 120}} size="lg" animation={props.ImgSkeletonAnimation}>
+                    <Placeholder bg="#ffffff" xs={12} className="h-100" />
                 </Placeholder>
                 <BCard.Body>
-                    <Placeholder bg="#d2d9d4" as={BCard.Title} animation={props.SkeletonAnimation}>
-                        <Placeholder bg="#d2d9d4" xs={12} />
+                    <Placeholder bg="#ffffff" as={BCard.Title} animation={props.SkeletonAnimation}>
+                        <Placeholder bg="#ffffff" xs={12} />
                     </Placeholder>
                     <Placeholder
-                        bg="#d2d9d4"
+                        bg="#ffffff"
                         as={BCard.Text}
                         animation={props.SkeletonAnimation}
                         className="text-center"
                     >
-                        <Placeholder bg="#d2d9d4" xs={6} />
+                        <Placeholder bg="#ffffff" xs={6} />
                     </Placeholder>
                     {/* <Placeholder.Button variant="primary" xs={6} /> */}
                 </BCard.Body>

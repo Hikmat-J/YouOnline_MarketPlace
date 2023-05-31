@@ -32,8 +32,8 @@ export default function PropertyDetails(props) {
             <Card className="bg-white shadow border-0 d-none d-lg-block ">
                 <Row className="justify-content-center ">
                     {imgSrc.trim() === "" ? (
-                        <Placeholder bg="#d2d9d4" as="p" style={{height: 150}} size="lg" animation="wave">
-                            <Placeholder bg="#d2d9d4" xs={12} className="h-100" />
+                        <Placeholder bg="#ffffff" as="p" style={{height: 150}} size="lg" animation="wave">
+                            <Placeholder bg="#ffffff" xs={12} className="h-100" />
                         </Placeholder>
                     ) : (
                         <Image
@@ -46,8 +46,8 @@ export default function PropertyDetails(props) {
                 <Row className="text-center">
                     <h5 className="fw-bold">
                         {fullName.trim() === "" ? (
-                            <Placeholder bg="#d2d9d4" as={"p"} animation="glow" className="text-center">
-                                <Placeholder bg="#d2d9d4" xs={4} />
+                            <Placeholder bg="#ffffff" as={"p"} animation="glow" className="text-center">
+                                <Placeholder bg="#ffffff" xs={4} />
                             </Placeholder>
                         ) : (
                             fullName
@@ -108,8 +108,8 @@ export default function PropertyDetails(props) {
                     <Col>
                         <h3 className="fw-bold text-break pt-2">
                             {propertyModel.proprety.uid.profile_image.trim() === "" ? (
-                                <Placeholder bg="#d2d9d4" as={"p"} animation="glow" className="text-start">
-                                    <Placeholder bg="#d2d9d4" xs={6} />
+                                <Placeholder bg="#ffffff" as={"p"} animation="glow" className="text-start">
+                                    <Placeholder bg="#ffffff" xs={6} />
                                 </Placeholder>
                             ) : (
                                 propertyModel.proprety.title
@@ -119,8 +119,8 @@ export default function PropertyDetails(props) {
                     <Col className="text-end ">
                         <h3 className="fw-bold text-primary ">
                             {propertyModel.proprety.uid.profile_image.trim() === "" ? (
-                                <Placeholder bg="#d2d9d4" as={"p"} animation="glow" className="text-end">
-                                    <Placeholder bg="#d2d9d4" xs={4} />
+                                <Placeholder bg="#ffffff" as={"p"} animation="glow" className="text-end">
+                                    <Placeholder bg="#ffffff" xs={4} />
                                 </Placeholder>
                             ) : (
                                 propertyModel.proprety.price
@@ -129,8 +129,8 @@ export default function PropertyDetails(props) {
                         <h5 className="text-break text-gray fw-bold">
                             <IoIosClock className="h5 m-1 mb-2" />
                             {propertyModel.proprety.uid.profile_image.trim() === "" ? (
-                                <Placeholder bg="#d2d9d4" as={"p"} animation="glow" className="text-end">
-                                    <Placeholder bg="#d2d9d4" xs={3} />
+                                <Placeholder bg="#ffffff" as={"p"} animation="glow" className="text-end">
+                                    <Placeholder bg="#ffffff" xs={3} />
                                 </Placeholder>
                             ) : (
                                 `${helpers.DateToTime(propertyModel.proprety.created_at)}`

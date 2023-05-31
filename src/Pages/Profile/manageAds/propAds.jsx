@@ -15,7 +15,7 @@ export default function ManagePropAds(props) {
         dispatch(GetMyProperties());
     }, []);
     return (
-        <Container className="my-5">
+        <>
             <Row>
                 <h3 className="fw-bold">{app.translate("manageyourads")}</h3>
             </Row>
@@ -63,19 +63,6 @@ export default function ManagePropAds(props) {
                     </>
                 )}
             </Row>
-            <Dialog
-                Show={control.Show}
-                Title="alert"
-                OnClose={() => {
-                    setControl((old) => ({...old, Show: false}));
-                }}
-                Ok={() => {}}
-                OkLabel="yes"
-                HeaderClass="bg-warning"
-                OkVariant="warning"
-            >
-                <h6>{app.translate("areyousuretodeleteimage")}</h6>
-            </Dialog>
-        </Container>
+        </>
     );
 }

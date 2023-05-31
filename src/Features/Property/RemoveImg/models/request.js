@@ -1,0 +1,1 @@
+export const img_Id = 0 // url

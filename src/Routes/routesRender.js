@@ -10,7 +10,7 @@ export const RoutesRenderer = (routArray) =>
             element={
                 <Suspense
                     fallback={
-                        <div className="justify-content-center px-5 " style={{minHeight: 1000, height: 1000}}>
+                        <div className="justify-content-center px-5 " style={{minHeight: 800, height: 800}}>
                             {/* <Lottie animationData={lottieFile} /> */}
                             {/* <PagePlaceholder /> */}
                         </div>

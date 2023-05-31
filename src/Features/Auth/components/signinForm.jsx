@@ -37,7 +37,6 @@ export default function SignInForm(props) {
     function ContinueWithGoogle() {}
     useEffect(() => {
         if (authSelector.status === "succeeded") {
-            document.location.reload();
             app.ChangeLinesSpinnerStatus(false);
         }
         if (authSelector.status === "failed") {
@@ -46,6 +45,7 @@ export default function SignInForm(props) {
         }
         if (authSelector.status === "loading") app.ChangeLinesSpinnerStatus(true);
     }, [authSelector.status]);
+
     return (
         <div>
             {/* <Row className="text-end">

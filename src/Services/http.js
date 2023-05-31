@@ -57,6 +57,23 @@ export async function Put(url, body, params, isFormData = true) {
     });
 }
 
+export async function Delete(url, params, isFormData = true) {
+    let token = app.getCookie("jwt-Auzhorization", "");
+    let headers = {
+        Authorization: token === "" ? "" : `Bearer ${token}`,
+        "content-type": isFormData ? "multipart/form-data" : "application/json",
+    };
+    let sendUrl = url.slice(0, 6) === "/media" ? url : Constants.BASE_FRONTEND_API_URL + url;
+    return axios
+    .delete(sendUrl, {params, headers})
+    .then((resSuccess) => {
+        return HandleResponse(resSuccess);
+    })
+    .catch((err) => {
+        return HandleError(err);
+    });
+}
+
 /// ------------- HELPERS --------------- ///
 
 async function HandleError(error) {

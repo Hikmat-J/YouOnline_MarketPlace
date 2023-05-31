@@ -42,22 +42,22 @@ export default function PropertyCard(props) {
                 className={` m-3 ${props.ContainerClass} `}
                 style={{height: 410, width: 250, backgroundColor: props.BackgroundColor}}
             >
-                <Placeholder bg="#d2d9d4" as="p" style={{height: 200}} size="lg" animation={props.ImgSkeletonAnimation}>
-                    <Placeholder bg="#d2d9d4" xs={12} className="h-100" />
+                <Placeholder className='rounded-2' bg="#ffffff" as="p" style={{height: 200}} size="lg" animation={props.ImgSkeletonAnimation}>
+                    <Placeholder bg="#ffffff" xs={12} className="h-100" />
                 </Placeholder>
                 <BCard.Body>
-                    <Placeholder bg="#d2d9d4" as={BCard.Title} animation={props.SkeletonAnimation}>
-                        <Placeholder bg="#d2d9d4" xs={12} />
+                    <Placeholder bg="#ffffff" as={BCard.Title} animation={props.SkeletonAnimation}>
+                        <Placeholder bg="#ffffff" xs={12} />
                     </Placeholder>
-                    <Placeholder bg="#d2d9d4" as={BCard.Text} animation={props.SkeletonAnimation}>
-                        <Placeholder bg="#d2d9d4" xs={6} />
+                    <Placeholder bg="#ffffff" as={BCard.Text} animation={props.SkeletonAnimation}>
+                        <Placeholder bg="#ffffff" xs={6} />
                     </Placeholder>
-                    <Placeholder bg="#d2d9d4" as={BCard.Footer} animation={props.SkeletonAnimation}>
-                        <Placeholder bg="#d2d9d4" xs={3} />
-                        <Placeholder bg="#d2d9d4" xs={3} />
-                        <Placeholder bg="#d2d9d4" xs={3} />
+                    <Placeholder bg="#ffffff" as={BCard.Footer} animation={props.SkeletonAnimation}>
+                        <Placeholder bg="#ffffff" xs={3} />
+                        <Placeholder bg="#ffffff" xs={3} />
+                        <Placeholder bg="#ffffff" xs={3} />
                     </Placeholder>
-                    {/* <Placeholder bg="#d2d9d4".Button variant="primary" xs={6} /> */}
+                    {/* <Placeholder bg="#ffffff".Button variant="primary" xs={6} /> */}
                 </BCard.Body>
             </BCard>
         </>

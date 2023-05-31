@@ -22,13 +22,17 @@ import {
     Checkbox,
     CategoryCard,
     VideoPlayer,
+    Dialog,
 } from "../../Components";
 import Countries from "../../Features/Common/Countries/components/Countries";
 import States from "../../Features/Common/States/components/CStates";
 import Cities from "../../Features/Common/Cities/components/Cities";
 import {MdCancel} from "react-icons/md";
+import {FcCancel} from "react-icons/fc";
+
 import {useParams} from "react-router-dom";
 import {RequestModel} from "../../Features/Property/Add/models";
+import {DeletePropertyImg} from "../../Features/Property/RemoveImg/middleware";
 
 export default function EditProperty() {
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
@@ -62,6 +66,10 @@ export default function EditProperty() {
         selectedCategory: "",
         disableNext: true,
         GetPropById_Loading: false,
+        loading_deleteImg: false,
+        ShowDialog: false,
+        imgDeleteId: 0,
+        loading_update: false,
     });
     const [data, setData] = useState({
         DATA_CHOICES: [...Constants.DATA_CHOICES],
@@ -69,7 +77,21 @@ export default function EditProperty() {
         UNIT_CHOICES: [...Constants.UNIT_CHOICES],
     });
 
-    function removeImage(img) {}
+    function removeImage() {
+        let img_id = control.imgDeleteId;
+        setControl((old) => ({...old, loading_deleteImg: true}));
+        DeletePropertyImg(img_id)
+        .then((res) => {
+            setControl((old) => ({...old, loading_deleteImg: false}));
+            setModel((old) => ({...old, proprety_image: old.proprety_image.filter((img) => img.id !== img_id)}));
+            app.ShowToastAlert("alert", "imgdeletedsuccessfully!", "success");
+        })
+        .catch((err) => {
+            setControl((old) => ({...old, loading_deleteImg: false}));
+            app.ShowToastAlert("alert", "errorwhiledeleteimg", "danger");
+        });
+    }
+
     function UpdateProperty() {
         let sendModel = {...RequestModel};
         sendModel.address = model.address;
@@ -95,7 +117,13 @@ export default function EditProperty() {
         sendModel.maid_room = model.maid_room;
         sendModel.parking = model.parking;
         sendModel.phone = model.phone;
-        sendModel.price = model.price;
+
+        let priceKey = model.price.trim().slice(-1);
+        let priceNumber = Number(model.price.trim().slice(0, -1));
+        if (priceKey === "K") priceNumber *= 1000;
+        if (priceKey === "M") priceNumber *= 1000000;
+        sendModel.price = priceNumber;
+
         sendModel.prop_type = model.prop_type;
         sendModel.sports = model.sports;
         sendModel.state = model.state.id;
@@ -104,15 +132,15 @@ export default function EditProperty() {
         sendModel.swimming_poll = model.swimming_poll;
         sendModel.title = model.title;
 
-        app.ChangeLinesSpinnerStatus(true);
+        setControl((old) => ({...old, loading_update: true}));
         UpdatePropertyApi(params.id, sendModel)
         .then((res) => {
-            app.ShowToastAlert("alert", app.translate(""));
-            app.ChangeLinesSpinnerStatus(false);
+            app.ShowToastAlert("alert", app.translate("postupdatedsuccessfully!"), "", "success");
+            setControl((old) => ({...old, loading_update: false}));
         })
         .catch((err) => {
             app.ShowToastAlert("alert", "error : " + err);
-            app.ChangeLinesSpinnerStatus(false);
+            setControl((old) => ({...old, loading_update: false}));
         });
     }
     useEffect(() => {
@@ -135,10 +163,15 @@ export default function EditProperty() {
     }, [params.id]);
     return (
         <>
-            {console.log("model >> ", model)}
-            <div className="my-5 mx-lg-5 mx-3 px-0 px-lg-5 py-3 bg-light rounded-2">
+            <div className="p-2 bg-light rounded-2">
                 <Row className="justify-content-end my-3 ">
-                    <Button Class="w-auto" Label="update" OnClick={UpdateProperty} Variant="primary" />
+                    <Button
+                        ShowSkeleton={control.loading_update}
+                        Class="w-auto mx-3"
+                        Label="update"
+                        OnClick={UpdateProperty}
+                        Variant="primary"
+                    />
                 </Row>
                 <Tabs defaultActiveKey={control.selectedTab} id="editProptabs" className="mb-3">
                     <Tab eventKey="details" title={app.translate("details")}>
@@ -648,12 +681,26 @@ export default function EditProperty() {
                                 return (
                                     <>
                                         <Col className="position-relative m-1 my-3 ">
-                                            <MdCancel
-                                                className="text-danger bg-light rounded-5 position-absolute start-0  "
-                                                style={{top: -10, cursor: "pointer", zIndex: 20}}
-                                                size={25}
-                                                onClick={() => removeImage(img)}
-                                            />
+                                            {control.loading_deleteImg && img.id === control.imgDeleteId ? (
+                                                <FcCancel
+                                                    className="text-danger bg-light rounded-5 position-absolute start-0  "
+                                                    style={{top: -10, cursor: "pointer", zIndex: 20}}
+                                                    size={25}
+                                                />
+                                            ) : (
+                                                <MdCancel
+                                                    className="text-danger bg-light rounded-5 position-absolute start-0  "
+                                                    style={{top: -10, cursor: "pointer", zIndex: 20}}
+                                                    size={25}
+                                                    onClick={() =>
+                                                        setControl((old) => ({
+                                                            ...old,
+                                                            ShowDialog: true,
+                                                            imgDeleteId: img.id,
+                                                        }))
+                                                    }
+                                                />
+                                            )}
                                             <Image
                                                 style={{zIndex: 10}}
                                                 src={img.proprety_image}
@@ -665,6 +712,9 @@ export default function EditProperty() {
                                     </>
                                 );
                             })}
+                        </Row>
+                        <Row className="justify-content-center">
+                            <hr className="w-50" />
                         </Row>
                         <Row className="text-center my-5 ">
                             <h2 className="fw-bold">{`${app.translate("oruploadnewimages")}`}</h2>
@@ -699,6 +749,22 @@ export default function EditProperty() {
                     </Tab>
                 </Tabs>
             </div>
+            <Dialog
+                Show={control.ShowDialog}
+                Title="confirm"
+                OnClose={() => {
+                    setControl((old) => ({...old, ShowDialog: false}));
+                }}
+                Ok={() => {
+                    setControl((old) => ({...old, ShowDialog: false}));
+                    removeImage();
+                }}
+                OkLabel="yes"
+                HeaderClass="bg-danger text-light"
+                OkVariant="danger"
+            >
+                <h6>{app.translate("areyousuretodeleteimage")}</h6>
+            </Dialog>
         </>
     );
 }
